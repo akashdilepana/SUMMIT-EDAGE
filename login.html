@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Glassmorphism Login Form | CodingNepal</title>
+  <title>Login Page</title>
   <link rel="stylesheet" href="css/login_style.css">
 </head>
+
 <body>
+
   <div class="wrapper">
-    <form action="#">
+    <form action="php/login.php" method="post" id="loginForm">
       <h2>Login here</h2>
-        <div class="input-field">
-        <input type="text" required>
-        <label>Enter your email</label>
+      <div class="input-field">
+        <input type="text" name="username" required>
+        <label>Enter your username</label>
       </div>
       <div class="input-field">
-        <input type="password" required>
+        <input type="password" name="password" required>
         <label>Enter your password</label>
       </div>
       <div class="forget">
@@ -31,5 +34,41 @@
       </div>
     </form>
   </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function (event) {
+      event.preventDefault(); // Prevent form from submitting the default way
+
+      const username = document.querySelector('input[name="username"]').value;
+      const password = document.querySelector('input[name="password"]').value;
+
+      if (username && password) {
+        fetch('php/login.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: `name=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+        })
+          .then(response => response.text())
+          .then(data => {
+            if (data.trim() === 'ok') {
+              window.location.href = 'home.html';
+            } else {
+              alert('Invalid username or password');
+            }
+            
+            // alert(data); // Display server response
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      } else {
+        alert('Please fill in all fields');
+      }
+    });
+  </script>
+
 </body>
+
 </html>
