@@ -37,7 +37,7 @@
 
   <script>
     document.getElementById('loginForm').addEventListener('submit', function (event) {
-      event.preventDefault(); // Prevent form from submitting the default way
+      event.preventDefault(); 
 
       const username = document.querySelector('input[name="username"]').value;
       const password = document.querySelector('input[name="password"]').value;
@@ -58,7 +58,6 @@
               alert('Invalid username or password');
             }
             
-            // alert(data); // Display server response
           })
           .catch(error => {
             console.error('Error:', error);

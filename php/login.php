@@ -1,4 +1,6 @@
 <?php
+session_start(); // Start the session
+
 // Database credentials
 $host = 'localhost';
 $dbname = 'summit_edge';
@@ -24,11 +26,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bindParam(':password', $password);
     $stmt->execute();
 
-    // Check if user exists
     if ($stmt->rowCount() > 0) {
-        echo "ok";
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Store user information in the session
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['username'] = $user['username'];
+        $_SESSION['name'] = $user['name'];
+        $_SESSION['usertype'] = $user['user_type'];
+
+
+
+        echo "ok";  // Indicate a successful login to the JavaScript code
     } else {
-        echo "no";
+        echo "no";  // Indicate login failure
     }
 }
 ?>

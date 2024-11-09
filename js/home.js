@@ -169,3 +169,38 @@ window.addEventListener("mousemove", function (event) {
   }
 
 });
+
+
+fetch('php/home.php')
+  .then(response => response.json())
+  .then(data => {
+    if (data.error) {
+      // User is not logged in, show login button
+      document.getElementById('user-info').style.display = 'none';
+      document.getElementById('login-prompt').style.display = 'block';
+    } else {
+      // User is logged in, show username and logout button
+      document.getElementById('username').textContent = "WELCOME - " + data.name;
+      document.getElementById('user-info').style.display = 'block';
+      document.getElementById('login-prompt').style.display = 'none';
+      if (data.usertype == 1) {
+        document.getElementById('admin_dash').style.display = 'block';
+
+      }
+
+    }
+  })
+  .catch(error => console.error('Error fetching user data:', error));
+
+// Logout function
+function logout() {
+  fetch('php/logout.php')
+    .then(response => response.text())
+    .then(data => {
+      if (data.trim() === "logged_out") {
+        // Redirect to home page after logout to show login button
+        window.location.href = 'home.html';
+      }
+    })
+    .catch(error => console.error('Error during logout:', error));
+}
