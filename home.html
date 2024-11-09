@@ -26,7 +26,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Forum&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
 
-  
+
 
   <!-- 
     - custom css link
@@ -39,7 +39,7 @@
   <link rel="preload" as="image" href="./assets/images/hero-slider-1.jpg">
   <link rel="preload" as="image" href="./assets/images/hero-slider-2.jpg">
   <link rel="preload" as="image" href="./assets/images/hero-slider-3.jpg">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body id="top">
@@ -49,15 +49,15 @@
   -->
 
   <div class="preload" data-preaload>
-    <div class ="stars-container">
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    
+    <div class="stars-container">
+      <div class="star"></div>
+      <div class="star"></div>
+      <div class="star"></div>
+      <div class="star"></div>
+      <div class="star"></div>
+
     </div><br>
-  <p class="text">SUMMIT EDGE</p>
+    <p class="text">SUMMIT EDGE</p>
   </div>
 
 
@@ -90,7 +90,10 @@
 
         <span class="span">Daily : 8.00 am to 10.00 pm</span>
       </div>
+      <div class="topbar-item item-2">
 
+        <span class="span" id="username"></span>
+      </div>
       <a href="tel:+9476174749" class="topbar-item link">
         <div class="icon">
           <ion-icon name="call-outline" aria-hidden="true"></ion-icon>
@@ -163,7 +166,7 @@
             </a>
           </li>
 
-          <li class="navbar-item">
+          <li class="navbar-item" id="admin_dash" style="display: none;">
             <a href="#" class="navbar-link hover-underline">
               <div class="separator"></div>
 
@@ -181,7 +184,7 @@
 
         </ul>
 
-         <div class="text-center">
+        <div class="text-center">
           <p class="headline-1 navbar-title">Summit Edge</p>
 
           <address class="body-4">
@@ -203,11 +206,23 @@
 
       </nav>
 
-      <a href="#" class="btn btn-secondary">
-        <span class="text text-1">Login</span>
+      <div class="btn btn-secondary" id="user-info" style="display: none;">
+
+        <span id="logout-btn" onclick="logout()">LOGOUT<i class="fas fa-sign-out-alt"></i></span>
+      </div>
+      <div class="btn btn-secondary" id="login-prompt" style="display: block;">
+        <button id="login-btn" onclick="window.location.href = 'login.html';">Log In</button>
+      </div>
+      <!-- <a href="#" class="btn btn-secondary" id="login-prompt">
+        <span class="text text-1" id="username">Login</span>
 
         <span class="text text-2" aria-hidden="true"></span>
       </a>
+      <a href="#" class="btn btn-secondary" id="user-info" style="display: none;">
+        <span onclick="logout()" class="text text-1" id="username"></span>
+
+        <span class="text text-2" aria-hidden="true"></span>
+      </a> -->
 
       <button class="nav-open-btn" aria-label="open menu" data-nav-toggler>
         <span class="line line1"></span>
@@ -969,7 +984,7 @@
 
                 <h3 class="title-2 card-title">Event & Party</h3>
 
-                <p class="label-1 card-text">Lorem  Ipsum is simply dummy printing and typesetting.</p>
+                <p class="label-1 card-text">Lorem Ipsum is simply dummy printing and typesetting.</p>
 
               </div>
             </li>
@@ -1192,8 +1207,7 @@
       <div class="footer-bottom">
 
         <p class="copyright">
-          &copy; 2024 Summit Edge. All Rights Reserved / Crafted by Banula<a href=""
-            target="_blank" class="link"></a>
+          &copy; 2024 Summit Edge. All Rights Reserved / Crafted by Banula<a href="" target="_blank" class="link"></a>
         </p>
 
       </div>
