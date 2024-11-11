@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Restaurant Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/admin_style.css">
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="profile">
+            <img src="./assets/images/524.jpg" alt="Admin Profile">
+            <h3 id="adminname"></h3>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="#profile">Profile</a></li>
+                <li><a href="#orders">Orders</a></li>
+                <li><a href="#logout">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header Section -->
+        <header>
+            <div class="header-container">
+                <h1>SUMMIT EDGE RESTAURANT</h1>
+                <nav>
+                    <ul>
+                        <li><a href="home.html">Home</a></li>
+                        <li><a href="#menu">Menu</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#bookings">Bookings</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Dashboard -->
+        <section id="dashboard">
+            <h2>Admin Dashboard</h2>
+            <p>Manage your restaurant with ease. Use the sections below to manage users, menu items, and more.</p>
+
+            <div class="dashboard-options">
+                <div class="option">
+                    <img src="./assets/images/634.jpg" alt="Users">
+                    <h3>Users</h3>
+                </div>
+                <div class="option">
+                    <img src="./assets/images/532.jpg" alt="Food">
+                    <h3>Food</h3>
+                </div>
+                <div class="option">
+                    <img src="./assets/images/111.webp" alt="Menu">
+                    <h3>Menu</h3>
+                </div>
+                <div class="option">
+                    <img src="./assets/images/944.jpg" alt="Discounts">
+                    <h3>Discounts</h3>
+                </div>
+                <div class="option">
+                    <img src="./assets/images/533.jpg" alt="Sales">
+                    <h3>Sales</h3>
+                </div>
+                <div class="option">
+                    <img src="./assets/images/522.jpg" alt="Offers">
+                    <h3>Offers</h3>
+                </div>
+                <div class="option">
+                    <img src="./assets/images/842.jpg" alt="Customers">
+                    <h3>Customers</h3>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        fetch('php/home.php')
+            .then(response => response.json())
+            .then(data => {
+
+                document.getElementById('adminname').textContent = data.name;
+
+            })
+            .catch(error => console.error('Error fetching user data:', error));
+    </script>
+
+</body>
+
+</html>
