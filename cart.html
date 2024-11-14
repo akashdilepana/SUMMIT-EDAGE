@@ -316,19 +316,20 @@
         }
 
         function updateCart() {
-            const cartList = document.getElementById('cart-list');
-            cartList.innerHTML = '';
-            cart.forEach((cartItem, index) => {
-                const listItem = document.createElement('li');
-                listItem.textContent = ${cartItem.item} - $${cartItem.price};
-                const removeButton = document.createElement('button');
-                removeButton.textContent = 'Remove';
-                removeButton.onclick = () => removeFromCart(index);
-                listItem.appendChild(removeButton);
-                cartList.appendChild(listItem);
-            });
-            document.getElementById('total-price').textContent = Total: $${totalPrice};
-        }
+    const cartList = document.getElementById('cart-list');
+    cartList.innerHTML = '';
+    cart.forEach((cartItem, index) => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${cartItem.item} - $${cartItem.price}`;
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'Remove';
+        removeButton.onclick = () => removeFromCart(index);
+        listItem.appendChild(removeButton);
+        cartList.appendChild(listItem);
+    });
+    document.getElementById('total-price').textContent = `Total: $${totalPrice}`;
+}
+
 
         function removeFromCart(index) {
             totalPrice -= cart[index].price;
@@ -400,13 +401,15 @@
                 }
 
                 // Simulate payment processing
-                alert(Payment of $${totalPrice} successful via Credit/Debit Card!);
-            } else if (method === 'paypal') {
+                if (method === 'credit') {
+                    alert(`Payment of $${totalPrice} successful via Credit/Debit Card!`);
+                } else if (method === 'paypal') {
                 // Simulate PayPal redirection
-                alert(Redirecting to PayPal to pay $${totalPrice}...);
+                alert(`Redirecting to PayPal to pay $${totalPrice}...`);
             } else if (method === 'cash') {
-                alert(Order confirmed! You will pay $${totalPrice} in cash upon delivery.);
-            }
+    alert(`Order confirmed! You will pay $${totalPrice} in cash upon delivery.`);
+}
+
 
             // Reset cart after payment
             cart = [];
@@ -434,6 +437,8 @@
         }
 
         function formatExpiry(input) {
+    
+function formatExpiry(input) {
             let value = input.value.replace(/\D/g, '').substring(0,4);
             if (value.length > 2) {
                 input.value = value.substring(0,2) + '/' + value.substring(2,4);
