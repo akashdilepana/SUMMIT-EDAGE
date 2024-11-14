@@ -27,7 +27,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Forum&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
 
-  
+
 
   <!-- 
     - custom css link
@@ -40,7 +40,7 @@
   <link rel="preload" as="image" href="./assets/images/hero-slider-1.jpg">
   <link rel="preload" as="image" href="./assets/images/hero-slider-2.jpg">
   <link rel="preload" as="image" href="./assets/images/hero-slider-3.jpg">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body id="top">
@@ -50,15 +50,15 @@
   -->
 
   <div class="preload" data-preaload>
-    <div class ="stars-container">
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    
+    <div class="stars-container">
+      <div class="star"></div>
+      <div class="star"></div>
+      <div class="star"></div>
+      <div class="star"></div>
+      <div class="star"></div>
+
     </div><br>
-  <p class="text">SUMMIT EDGE</p>
+    <p class="text">SUMMIT EDGE</p>
   </div>
 
 
@@ -91,7 +91,10 @@
 
         <span class="span">Daily : 8.00 am to 10.00 pm</span>
       </div>
+      <div class="topbar-item item-2">
 
+        <span class="span" id="username"></span>
+      </div>
       <a href="tel:+9476174749" class="topbar-item link">
         <div class="icon">
           <ion-icon name="call-outline" aria-hidden="true"></ion-icon>
@@ -182,7 +185,7 @@
 
         </ul>
 
-         <div class="text-center">
+        <div class="text-center">
           <p class="headline-1 navbar-title">Summit Edge</p>
 
           <address class="body-4">
@@ -204,11 +207,23 @@
 
       </nav>
 
-      <a href="#" class="btn btn-secondary">
-        <span class="text text-1">Login</span>
+      <div class="btn btn-secondary" id="user-info" style="display: none;">
+
+        <span id="logout-btn" onclick="logout()">LOGOUT<i class="fas fa-sign-out-alt"></i></span>
+      </div>
+      <div class="btn btn-secondary" id="login-prompt" style="display: block;">
+        <button id="login-btn" onclick="window.location.href = 'login.html';">Log In</button>
+      </div>
+      <!-- <a href="#" class="btn btn-secondary" id="login-prompt">
+        <span class="text text-1" id="username">Login</span>
 
         <span class="text text-2" aria-hidden="true"></span>
       </a>
+      <a href="#" class="btn btn-secondary" id="user-info" style="display: none;">
+        <span onclick="logout()" class="text text-1" id="username"></span>
+
+        <span class="text text-2" aria-hidden="true"></span>
+      </a> -->
 
       <button class="nav-open-btn" aria-label="open menu" data-nav-toggler>
         <span class="line line1"></span>
@@ -768,7 +783,6 @@
             <img src="" width="100" height="100" loading="lazy" alt="Sam Jhonson"
               class="img">
 
-            <p class="label-2 profile-name">Banula Thissera</p>
             <p class="label-2 profile-name">Akash Dilepana</p>
           </div>
 
@@ -972,7 +986,7 @@
 
                 <h3 class="title-2 card-title">Event & Party</h3>
 
-                <p class="label-1 card-text">Lorem  Ipsum is simply dummy printing and typesetting.</p>
+                <p class="label-1 card-text">Lorem Ipsum is simply dummy printing and typesetting.</p>
 
               </div>
             </li>
@@ -1054,7 +1068,7 @@
                   <img src="./assets/images/event-3.jpg" width="350" height="450" loading="lazy"
                     alt="Flavour so good you’ll try to eat with your eyes." class="img-cover">
 
-                  <time class="publish-date label-2" datetime="2022-09-03">03/09/2022</time>
+                  <time class="publish-date label-2" datetime="2022-09-03">11/11/2024</time>
                 </div>
 
                 <div class="card-content">
@@ -1099,16 +1113,17 @@
         <div class="footer-brand has-before has-after">
 
           <a href="#" class="logo">
-            <img src="./assets/images/logo.svg" width="160" height="50" loading="lazy" alt="grilli home">
+            <img src="./assets/images/logobgr.png" width="160" height="50" loading="lazy" alt="grilli home">
           </a>
 
           <address class="body-4">
-            Restaurant St, Delicious City, London 9578, UK
+            Summit,Nanuoya,Nuwaraeliya
+
           </address>
 
-          <a href="mailto:booking@grilli.com" class="body-4 contact-link">booking@grilli.com</a>
+          <a href="mailto:booking@grilli.com" class="body-4 contact-link">bookings@summit.com</a>
 
-          <a href="tel:+88123123456" class="body-4 contact-link">Booking Request : +88-123-123456</a>
+          <a href="tel:+88123123456" class="body-4 contact-link">Booking Request : +94-76-157-47-49</a>
 
           <p class="body-4">
             Open : 09:00 am - 01:00 pm
@@ -1195,8 +1210,7 @@
       <div class="footer-bottom">
 
         <p class="copyright">
-          &copy; 2024 Summit Edge. All Rights Reserved / Crafted by Banula<a href=""
-            target="_blank" class="link"></a>
+          &copy; 2024 Summit Edge. All Rights Reserved / Crafted by Banula<a href="" target="_blank" class="link"></a>
         </p>
 
       </div>
