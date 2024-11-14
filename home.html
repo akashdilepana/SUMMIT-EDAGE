@@ -21,6 +21,7 @@
   <!-- 
     - google font link
   -->
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.4/dist/sweetalert2.min.css" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Forum&display=swap" rel="stylesheet">
@@ -801,7 +802,7 @@
 
           <div class="form reservation-form bg-black-10">
 
-            <form action="" class="form-left">
+            <form action="php/reservation.php" id="reservation" class="form-left">
 
               <h2 class="headline-1 text-center">Online Reservation</h2>
 
@@ -845,7 +846,8 @@
                 <div class="icon-wrapper">
                   <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
 
-                  <select name="person" class="input-field">
+                  <input type="time" name="time" class="input-field">
+                  <!-- <select name="time" class="input-field">
                     <option value="08:00am">08 : 00 am</option>
                     <option value="09:00am">09 : 00 am</option>
                     <option value="010:00am">10 : 00 am</option>
@@ -861,7 +863,7 @@
                     <option value="08:00pm">08 : 00 pm</option>
                     <option value="09:00pm">09 : 00 pm</option>
                     <option value="10:00pm">10 : 00 pm</option>
-                  </select>
+                  </select> -->
 
                   <ion-icon name="chevron-down" aria-hidden="true"></ion-icon>
                 </div>
@@ -1235,6 +1237,7 @@
   <!-- 
     - custom js link
   -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.4/dist/sweetalert2.all.min.js"></script>
   <script src="./js/home.js"></script>
 
   <!-- 

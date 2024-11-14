@@ -82,6 +82,23 @@
             </div>
         </section>
 
+        <div id="property-table">
+            <table border="1">
+                <tr>
+                    <th>Property</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>Image Source</td>
+                    <td id="image-src"></td>
+                </tr>
+                <tr>
+                    <td>Alt Text</td>
+                    <td id="image-alt"></td>
+                </tr>
+            </table>
+            <button id="close-button">Close</button>
+        </div>
     </div>
 
     <script>
@@ -93,6 +110,38 @@
 
             })
             .catch(error => console.error('Error fetching user data:', error));
+
+        const dashboard = document.getElementById('dashboard');
+        const propertyTable = document.getElementById('property-table');
+        const imageSrc = document.getElementById('image-src');
+        const imageAlt = document.getElementById('image-alt');
+        const closeButton = document.getElementById('close-button');
+
+        // Add event listeners to images
+        document.querySelectorAll('.option img').forEach(img => {
+            img.addEventListener('click', () => {
+                // Hide the dashboard section
+                dashboard.style.display = 'none';
+
+                // Show the table and close button
+                propertyTable.style.display = 'block';
+                closeButton.style.display = 'block';
+
+                // Populate the table with image properties
+                imageSrc.textContent = img.src;
+                imageAlt.textContent = img.alt;
+            });
+        });
+
+        // Event listener for the close button
+        closeButton.addEventListener('click', () => {
+            // Show the dashboard section
+            dashboard.style.display = 'block';
+
+            // Hide the table and close button
+            propertyTable.style.display = 'none';
+            closeButton.style.display = 'none';
+        });
     </script>
 
 </body>

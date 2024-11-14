@@ -204,3 +204,61 @@ function logout() {
     })
     .catch(error => console.error('Error during logout:', error));
 }
+
+document.getElementById('reservation').addEventListener('submit', function (event) {
+  event.preventDefault();
+
+  const name = document.querySelector('input[name="name"]').value;
+  const phone = document.querySelector('input[name="phone"]').value;
+  const date = document.querySelector('input[name="reservation-date"]').value;
+  const time = document.querySelector('input[name="time"]').value;
+  const message = document.querySelector('textarea[name="message"]').value;
+
+  if (name && phone && date && time && message) {
+    fetch('php/reservation.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: `name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}&date=${encodeURIComponent(date)}
+    &time=${encodeURIComponent(time)}&message=${encodeURIComponent(message)}`
+    })
+      .then(response => response.text())
+      .then(data => {
+        if (data.trim() === 'ok') {
+          Swal.fire({
+            title: 'Reservation Done!',
+            text: 'Your reservation was successfully placed.',
+            icon: 'success',
+            confirmButtonText: 'OK'
+          }).then(() => {
+            // Clear input fields after successful reservation
+            document.querySelector('input[name="name"]').value = '';
+            document.querySelector('input[name="phone"]').value = '';
+            document.querySelector('input[name="reservation-date"]').value = '';
+            document.querySelector('input[name="time"]').value = '';
+            document.querySelector('textarea[name="message"]').value = '';
+          });
+        } else {
+          Swal.fire({
+            title: 'Invalid Data',
+            text: 'There was an issue with your submission.',
+            icon: 'error',
+            confirmButtonText: 'Try Again'
+          });
+        }
+
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  } else {
+    Swal.fire({
+      title: 'Invalid Data',
+      text: 'Plese fill the data.',
+      icon: 'error',
+      confirmButtonText: 'Try Again'
+    });
+  }
+
+});
