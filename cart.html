@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Menu Cart</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f5af19, #f12711);
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        
+        h1 {
+            font-size: 3em;
+            margin-top: 20px;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            font-size: 1.5em;
+            color: #333;
+        }
+
+        /* Menu Container */
+        .menu-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 40px;
+        }
+
+        /* Menu Item Card */
+        .menu-item {
+            background: #fff;
+            color: #444;
+            padding: 20px;
+            width: 250px;
+            border-radius: 15px;
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .menu-item h2 {
+            margin: 10px 0;
+            color: #ff5722;
+        }
+
+        .menu-item p {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            color: #666;
+        }
+
+        /* Add to Cart Button */
+        .add-to-cart-btn {
+            padding: 10px 20px;
+            background: linear-gradient(90deg, #ff5722, #ff8a00);
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0px 5px 15px rgba(255, 87, 34, 0.4);
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .add-to-cart-btn:hover {
+            background: linear-gradient(90deg, #ff8a00, #ff5722);
+            transform: scale(1.05);
+        }
+
+        /* Cart and Checkout Section */
+        #cart-section {
+            background: rgba(255, 255, 255, 0.9);
+            color: #444;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 500px;
+            margin: 40px auto;
+        }
+
+        #checkout-btn {
+            padding: 12px 30px;
+            background: linear-gradient(90deg, #4caf50, #66bb6a);
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        #checkout-btn:hover {
+            background: linear-gradient(90deg, #66bb6a, #4caf50);
+            transform: scale(1.1);
+        }
+
+        #cart-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #cart-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+            font-size: 1.1em;
+        }
+
+        #cart-list button {
+            padding: 5px 10px;
+            background: #ff5252;
+            color: #fff;
+            border: none;
+            border-radius: 15px;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        #cart-list button:hover {
+            background: #ff1744;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #fff;
+            color: #444;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #ff5722;
+        }
+
+        .payment-methods {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .payment-methods input {
+            margin-right: 10px;
+        }
+
+        .payment-form {
+            display: none;
+            text-align: left;
+        }
+
+        .payment-form input, .payment-form button {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .payment-form button {
+            background: #4caf50;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .payment-form button:hover {
+            background: #66bb6a;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .menu-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .menu-item {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Restaurant Menu</h1>
+    <div class="menu-container">
+        <div class="menu-item">
+            <h2>Pizza</h2>
+            <p>Price: $10</p>
+            <button class="add-to-cart-btn" onclick="addToCart('Pizza', 10)">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+            <h2>Burger</h2>
+            <p>Price: $5</p>
+            <button class="add-to-cart-btn" onclick="addToCart('Burger', 5)">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+            <h2>Pasta</h2>
+            <p>Price: $8</p>
+            <button class="add-to-cart-btn" onclick="addToCart('Pasta', 8)">Add to Cart</button>
+        </div>
+    </div>
+
+    <div id="cart-section">
+        <h2>Your Cart</h2>
+        <ul id="cart-list"></ul>
+        <p id="total-price">Total: $0</p>
+        <button id="checkout-btn" onclick="openCheckout()">Checkout</button>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="payment-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <h2>Select Payment Method</h2>
+            <div class="payment-methods">
+                <label>
+                    <input type="radio" name="payment" value="card" onclick="showPaymentForm('card')"> Credit/Debit Card
+                </label><br>
+                <label>
+                    <input type="radio" name="payment" value="paypal" onclick="showPaymentForm('paypal')"> PayPal
+                </label><br>
+                <label>
+                    <input type="radio" name="payment" value="cash" onclick="showPaymentForm('cash')"> Cash on Delivery
+                </label>
+            </div>
+
+            <!-- Credit/Debit Card Form -->
+            <div id="card-form" class="payment-form">
+                <h3>Card Details</h3>
+                <input type="text" id="card-number" placeholder="Card Number" maxlength="19" oninput="formatCardNumber(this)">
+                <input type="text" id="card-name" placeholder="Cardholder Name">
+                <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5" oninput="formatExpiry(this)">
+                <input type="text" id="card-cvv" placeholder="CVV" maxlength="3">
+                <button onclick="processPayment('card')">Pay $<span id="pay-amount-card">0</span></button>
+            </div>
+
+            <!-- PayPal Form -->
+            <div id="paypal-form" class="payment-form">
+                <h3>Pay with PayPal</h3>
+                <button onclick="processPayment('paypal')">Proceed to PayPal</button>
+            </div>
+
+            <!-- Cash on Delivery Form -->
+            <div id="cash-form" class="payment-form">
+                <h3>Cash on Delivery</h3>
+                <p>Please have the exact amount ready upon delivery.</p>
+                <button onclick="processPayment('cash')">Confirm Order</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let cart = [];
+        let totalPrice = 0;
+
+        function addToCart(item, price) {
+            cart.push({ item, price });
+            totalPrice += price;
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartList = document.getElementById('cart-list');
+            cartList.innerHTML = '';
+            cart.forEach((cartItem, index) => {
+                const listItem = document.createElement('li');
+                listItem.textContent = ${cartItem.item} - $${cartItem.price};
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remove';
+                removeButton.onclick = () => removeFromCart(index);
+                listItem.appendChild(removeButton);
+                cartList.appendChild(listItem);
+            });
+            document.getElementById('total-price').textContent = Total: $${totalPrice};
+        }
+
+        function removeFromCart(index) {
+            totalPrice -= cart[index].price;
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        function openCheckout() {
+            if (cart.length === 0) {
+                alert("Your cart is empty!");
+            } else {
+                openModal();
+            }
+        }
+
+        // Modal Functions
+        function openModal() {
+            document.getElementById('payment-modal').style.display = 'flex';
+            document.getElementById('pay-amount-card').textContent = totalPrice;
+        }
+
+        function closeModal() {
+            document.getElementById('payment-modal').style.display = 'none';
+            resetPaymentForms();
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('payment-modal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+                resetPaymentForms();
+            }
+        }
+
+        function showPaymentForm(method) {
+            document.getElementById('card-form').style.display = 'none';
+            document.getElementById('paypal-form').style.display = 'none';
+            document.getElementById('cash-form').style.display = 'none';
+
+            if (method === 'card') {
+                document.getElementById('card-form').style.display = 'block';
+            } else if (method === 'paypal') {
+                document.getElementById('paypal-form').style.display = 'block';
+            } else if (method === 'cash') {
+                document.getElementById('cash-form').style.display = 'block';
+            }
+        }
+
+        function resetPaymentForms() {
+            const forms = document.getElementsByClassName('payment-form');
+            for (let form of forms) {
+                form.style.display = 'none';
+            }
+            const paymentMethods = document.getElementsByName('payment');
+            paymentMethods.forEach(radio => radio.checked = false);
+        }
+
+        // Payment Processing Functions
+        function processPayment(method) {
+            if (method === 'card') {
+                const cardNumber = document.getElementById('card-number').value.trim();
+                const cardName = document.getElementById('card-name').value.trim();
+                const cardExpiry = document.getElementById('card-expiry').value.trim();
+                const cardCvv = document.getElementById('card-cvv').value.trim();
+
+                if (!validateCardDetails(cardNumber, cardName, cardExpiry, cardCvv)) {
+                    alert("Please enter valid card details.");
+                    return;
+                }
+
+                // Simulate payment processing
+                alert(Payment of $${totalPrice} successful via Credit/Debit Card!);
+            } else if (method === 'paypal') {
+                // Simulate PayPal redirection
+                alert(Redirecting to PayPal to pay $${totalPrice}...);
+            } else if (method === 'cash') {
+                alert(Order confirmed! You will pay $${totalPrice} in cash upon delivery.);
+            }
+
+            // Reset cart after payment
+            cart = [];
+            totalPrice = 0;
+            updateCart();
+            closeModal();
+        }
+
+        function validateCardDetails(number, name, expiry, cvv) {
+            const cardNumberPattern = /^\d{4} \d{4} \d{4} \d{4}$/;
+            const expiryPattern = /^(0[1-9]|1[0-2])\/\d{2}$/;
+            const cvvPattern = /^\d{3}$/;
+
+            return cardNumberPattern.test(number) &&
+                   name.length > 0 &&
+                   expiryPattern.test(expiry) &&
+                   cvvPattern.test(cvv);
+        }
+
+        // Formatting Functions
+        function formatCardNumber(input) {
+            let value = input.value.replace(/\D/g, '').substring(0,16);
+            let formattedValue = value.replace(/(.{4})/g, '$1 ').trim();
+            input.value = formattedValue;
+        }
+
+        function formatExpiry(input) {
+            let value = input.value.replace(/\D/g, '').substring(0,4);
+            if (value.length > 2) {
+                input.value = value.substring(0,2) + '/' + value.substring(2,4);
+            } else {
+                input.value = value;
+            }
+        }
+    </script>
+
+</body>
+</html>
