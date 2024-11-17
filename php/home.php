@@ -14,5 +14,6 @@ echo json_encode([
     "name" => $_SESSION['name']
     
 
-]);
+]); 
+
 ?>
