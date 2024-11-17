@@ -34,7 +34,7 @@ $response = [];
 
 switch ($option) {
     case 'user':
-        $stmt = $conn->query("SELECT id, username, name, password, status, user_type FROM users;");
+        $stmt = $conn->query("SELECT * FROM users;");
         $response = $stmt->fetchAll(PDO::FETCH_ASSOC);
         break;
 

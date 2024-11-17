@@ -20,7 +20,8 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="profile">
-            <img src="./assets/images/524.jpg" alt="Admin Profile">
+            <!-- <img src="./assets/images/524.jpg" alt="Admin Profile"> -->
+            <img id="profileImage" src="" alt="Admin Profile" />
             <h3 id="adminname"></h3>
         </div>
         <nav>
@@ -28,7 +29,7 @@
                 <li><a href="home.html">Home</a></li>
                 <li><a href="#profile">Profile</a></li>
                 <li><a href="#orders">Orders</a></li>
-                <li><a href="#logout">Logout</a></li>
+                <li><a href="#logout" onclick="logout()">Logout</a></li>
             </ul>
         </nav>
     </div>
@@ -201,6 +202,18 @@
                                             </select>
                                         </div>
                                     </div>
+
+                                    <div class="col-lg-6 col-12">
+                                        <div class="form-group">
+                                            <label for="image">Image<span class="text-danger">*</span></label>
+                                            <input id="userimage" type="file" name="image" class="form-control" required
+                                                autocomplete="off">
+                                            <!-- Image Preview -->
+                                            <img id="userimagePreview" src="" alt="Image Preview"
+                                                style="max-width: 20%; height: auto; display: none;" />
+
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -295,10 +308,25 @@
 
 
     <script>
+
+        // Logout function
+        function logout() {
+            fetch('php/logout.php')
+                .then(response => response.text())
+                .then(data => {
+                    if (data.trim() === "logged_out") {
+                        // Redirect to home page after logout to show login button
+                        window.location.href = 'home.html';
+                    }
+                })
+                .catch(error => console.error('Error during logout:', error));
+        }
         fetch('php/home.php')
             .then(response => response.json())
             .then(data => {
                 document.getElementById('adminname').textContent = data.name;
+                const profileImage = document.getElementById('profileImage'); // Assuming your image element has the id "profileImage"
+                profileImage.src = data.image;
             })
             .catch(error => console.error('Error fetching user data:', error));
 
@@ -388,9 +416,9 @@
                                 $(action_td).append('<a href="javascript:void(0)" class="editrec"><i class="icon feather icon-edit f-w-600 f-16 m-r-10 text-c-green"></i></a><a href="javascript:void(0)" class="delrec"><i class="feather icon-trash-2 f-w-600 f-16 text-danger"></i></a>');
                             }
                             $(row).append(action_td);
-                            var temp = '<div style="white-space:nowrap;"><img src=user_img?name=' + data['username'] + ' onerror="this.onerror=null; this.src=\'./assets/images/user.png\'"  class="img-radius img-40 align-top m-r-15" height="40" style="object-fit: cover;">' +
+                            var temp = '<div style="white-space:nowrap;"><img src=' + data['image'] + '?name=' + data['username'] + ' onerror="this.onerror=null; this.src=\'./assets/images/user.png\'"  class="img-radius img-40 align-top m-r-15" height="40" style="object-fit: cover;">' +
                                 '<div class="d-inline-block">' +
-                                ' <h6 style="word-break: break-all;word-wrap: break-word;" class="m-b-0">' + data['username'] + '</h6></div></div>';
+                                ' <h6 style="word-break: break-all;word-wrap: break-word; margin-left: 30px;" class="m-b-0">' + data['username'] + '</h6></div></div>';
                             $(row).find('td').eq(0).html(temp);
                             setTableStatus($(row).find('td').eq(3));
                             setUserType($(row).find('td').eq(4));

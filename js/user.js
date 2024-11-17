@@ -35,13 +35,22 @@ $(document).on('click', '.editrec', function () {
             clearForm();
             $('#name').val(data.name);
             $('#username').val(data.username);
+            if (data.image) {
+                $('#userimagePreview')
+                    .attr('src', `${data.image}`) 
+                    .show();
+            } else {
+                $('#userimagePreview').hide();
+            };
             if (data.userType) {
                 user_type.setData([{ value: data.userType.id, text: data.userTypeName }]);
                 user_type.set(data.userType.id);
-            }
+            };
+            
             $('#saveBtn').data('mode', 'update');
             $('#saveBtn').html('<i class="icon feather icon-save"></i>Update');
             $('#saveBtn').data('id', id);
+        
 
             $('#userFormModal').modal('show');
             $('#tableSection').hide();
@@ -63,6 +72,8 @@ document.getElementById('saveBtn').addEventListener('click', function () {
     } else {
         var userType = 2;
     }
+    var imageInput = document.getElementById('userimage'); 
+
     if (name === '') {
         Swal.fire("Empty Name!", "Please Enter a Valid Name!", "warning");
         return;
@@ -73,6 +84,10 @@ document.getElementById('saveBtn').addEventListener('click', function () {
     }
     if (userType === null || userType === '') {
         Swal.fire("UserType not Selected!", "Please Select a UserType!", "warning");
+        return;
+    }
+    if (imageInput.files.length === 0) {
+        Swal.fire("No Image!", "Please Upload an Image for the Menu!", "warning");
         return;
     }
 
@@ -89,6 +104,8 @@ document.getElementById('saveBtn').addEventListener('click', function () {
     } else {
         formData.append('type', 2);
     }
+    formData.append('image', imageInput.files[0]);
+
 
     Swal.fire({
         title: 'Are you sure?',

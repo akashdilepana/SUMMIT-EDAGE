@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if ($id > 0) {
         try {
             // Prepare and execute the query to fetch user data
-            $stmt = $conn->prepare("SELECT id, name, username, user_type FROM users WHERE id = :id LIMIT 1");
+            $stmt = $conn->prepare("SELECT id, name, username, user_type, image FROM users WHERE id = :id LIMIT 1");
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
 
