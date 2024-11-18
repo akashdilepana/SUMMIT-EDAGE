@@ -2,40 +2,40 @@
 function clearForm() {
     console.log('Clearing form...');
 
-    $('#name').val(''); 
+    $('#name').val('');
     $('#username').val('');
-    $('#userimagePreview').hide().attr('src', ''); 
+    $('#userimagePreview').hide().attr('src', '');
 
     if (typeof user_type !== 'undefined' && typeof user_type.clear === 'function') {
-        user_type.clear(); 
+        user_type.clear();
     } else {
         console.warn('user_type is not defined or clear method is unavailable.');
     }
 
     $('#saveBtn')
-        .removeData('id') 
+        .removeData('id')
         .removeData('mode')
-        .html('<i class="icon feather icon-save"></i>Save'); 
+        .html('<i class="icon feather icon-save"></i>Save');
 }
 $('#userFormModal').on('hidden.bs.modal', function () {
-    clearForm(); 
+    clearForm();
     console.log('Modal closed and form cleared');
 });
 $('#addUserBtn').click(function () {
-    clearForm(); 
-    $('#saveBtn').data('mode', 'save'); 
+    clearForm();
+    $('#saveBtn').data('mode', 'save');
     $('#saveBtn').html('<i class="icon feather icon-save"></i>Save');
-    $('#tableSection').hide(); 
-    $('#userFormModal').modal('show'); 
+    $('#tableSection').hide();
+    $('#userFormModal').modal('show');
 });
 
 $('.cls-card').click(function () {
-    $('#name').val(''); 
-    $('#username').val(''); 
+    $('#name').val('');
+    $('#username').val('');
     $('#userimagePreview').hide().attr('src', '');
     user_type.clear();
     $('#saveBtn')
-        .removeData('id') 
+        .removeData('id')
         .removeData('mode')
         .html('<i class="icon feather icon-save"></i>Save');
     $('#userFormModal').modal('hide');
