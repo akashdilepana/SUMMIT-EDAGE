@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover a variety of delicious meals and treats at Tasty Treats Hub. Enjoy pizzas, burgers, pasta, sushi, and more!">
+    <title>Tasty Treats Hub</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow: auto;
+        }
+
+        /* Navigation Bar Styles */
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.7);
+            width: 100%;
+            margin: 0;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+            padding: 15px;
+        }
+
+        nav ul li a:hover {
+            color: #ff7f50; /* Hover color */
+        }
+
+        #admin_dash {
+            display: none;
+        }
+
+        /* Page Title */
+        h1 {
+            margin-top: 20px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Menu Container Styles */
+        .menu-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+        }
+
+        /* Menu Item Styles */
+        .menu-item {
+            background: white;
+            color: #8B4513;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            text-align: center;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 400px;
+        }
+
+        .menu-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        .menu-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .menu-item h3 {
+            margin: 10px 0 5px;
+            font-size: 1.2em;
+        }
+
+        .menu-item .price {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .menu-item .description {
+            font-size: 0.9em;
+            color: #555;
+            margin-top: 5px;
+        }
+
+        .size-selection {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .size-selection label {
+            font-size: 1.1em;
+        }
+
+        .cart-btn {
+            background-color: #ff7f50;
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .cart-btn:hover {
+            background-color: #ff4500;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8em;
+                text-align: center;
+            }
+            nav ul li a {
+                font-size: 1em;
+                padding: 10px;
+            }
+        }
+
+        /* Header Styling */
+        .header .container {
+            max-width: unset; /* Allows the container to span fully */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+        }
+
+        /* Navbar Styling */
+        .navbar-list {
+            display: flex;
+            gap: 30px; /* Space between menu items */
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar-item {
+            border: none;
+        }
+
+        .navbar-link {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            letter-spacing: 1px;
+            padding: 10px 15px;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .navbar-link:hover, .navbar-link:focus-visible {
+            color: #ff7f50; /* Highlight on hover or focus */
+            transform: scale(1.1); /* Slightly enlarge on hover */
+        }
+
+        .navbar-link.active::after {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: #ff7f50;
+            transform: scaleX(1);
+            opacity: 1;
+        }
+
+        /* Show Admin Dashboard when applicable */
+        #admin_dash {
+            display: block;
+        }
+
+        /* Responsive Styling */
+        @media (max-width: 768px) {
+            .header .container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .navbar-list {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .navbar-link {
+                padding: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header class="header">
+        <div class="container">
+            <!-- Logo -->
+            <a href="#" class="logo">
+                <img src="./assets/images/logobgr.png" alt="Tasty Treats Hub" width="150" height="100">
+            </a>
+    
+            <!-- Navigation Bar -->
+            <nav class="navbar">
+                <ul class="navbar-list">
+                    <li class="navbar-item">
+                        <a href="home.html" class="navbar-link">
+                            <span class="span">Home</span>
+                        </a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="menu.html" class="navbar-link active">
+                            <span class="span">Menu</span>
+                        </a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="#about" class="navbar-link">
+                            <span class="span">About Us</span>
+                        </a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="#contact" class="navbar-link">
+                            <span class="span">Contact</span>
+                        </a>
+                    </li>
+                    <li class="navbar-item" id="admin_dash" style="display: none;">
+                        <a href="adminDashboard.html" class="navbar-link">
+                            <span class="span">Admin Dashboard</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Page Title -->
+    <h1>Flavors of Delight</h1>
+
+    <!-- Menu Items -->
+    <div class="menu-container">
+        <div class="menu-item">
+            <img src="./assets/images/Pizza.jpg" alt="Image of Italian Delight Pizza">
+            <h3>Italian Delight Pizza</h3>
+            <div class="price">$12.99</div>
+            <p class="description">A classic Italian pizza topped with fresh mozzarella, tomato sauce, and basil.</p>
+            
+            <!-- Size Selection -->
+            <div class="size-selection">
+                <label>
+                    <input type="radio" name="size-pizza" value="medium" checked> Medium
+                </label>
+                <label>
+                    <input type="radio" name="size-pizza" value="large"> Large
+                </label>
+            </div>
+            
+            <button class="cart-btn">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+            <img src="./assets/images/Burger.jpg" alt="Image of Classic Juicy Burger">
+            <h3>Classic Juicy Burger</h3>
+            <div class="price">$8.99</div>
+            <p class="description">Juicy grilled beef patty with lettuce, tomato, and a soft sesame bun.</p>
+
+            <!-- Size Selection -->
+            <div class="size-selection">
+                <label>
+                    <input type="radio" name="size-burger" value="medium" checked> Medium
+                </label>
+                <label>
+                    <input type="radio" name="size-burger" value="large"> Large
+                </label>
+            </div>
+            
+            <button class="cart-btn">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+            <img src="./assets/images/Pasta.jpg" alt="Image of Creamy Alfredo Pasta">
+            <h3>Creamy Alfredo Pasta</h3>
+            <div class="price">$10.99</div>
+            <p class="description">Creamy Alfredo sauce served over freshly made fettuccine pasta.</p>
+
+            <!-- Size Selection -->
+            <div class="size-selection">
+                <label>
+                    <input type="radio" name="size-pasta" value="medium" checked> Medium
+                </label>
+                <label>
+                    <input type="radio" name="size-pasta" value="large"> Large
+                </label>
+            </div>
+            
+            <button class="cart-btn">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+            <img src="./assets/images/Sushi.jpg" alt="Image of Fresh Ocean Sushi">
+            <h3>Fresh Ocean Sushi</h3>
+            <div class="price">$15.99</div>
+            <p class="description">Assorted fresh sushi rolls with salmon, tuna, and avocado.</p>
+
+            <!-- Size Selection -->
+            <div class="size-selection">
+                <label>
+                    <input type="radio" name="size-sushi" value="medium" checked> Medium
+                </label>
+                <label>
+                    <input type="radio" name="size-sushi" value="large"> Large
+                </label>
+            </div>
+            
+            <button class="cart-btn">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+            <img src="./assets/images/Ice-cream.jpg" alt="Image of Dreamy Vanilla Scoop">
+            <h3>Dreamy Vanilla Scoop</h3>
+            <div class="price">$5.99</div>
+            <p class="description">Rich and creamy vanilla ice cream topped with chocolate syrup.</p>
+
+            <!-- Size Selection -->
+            <div class="size-selection">
+                <label>
+                    <input type="radio" name="size-icecream" value="medium" checked> Medium
+                </label>
+                <label>
+                    <input type="radio" name="size-icecream" value="large"> Large
+                </label>
+            </div>
+            
+            <button class="cart-btn">Add to Cart</button>
+        </div>
+    </div>
+</body>
+</html>
