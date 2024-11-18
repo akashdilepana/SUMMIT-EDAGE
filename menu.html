@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Discover a variety of delicious meals and treats at Tasty Treats Hub. Enjoy pizzas, burgers, pasta, sushi, and more!">
+    <meta name="description"
+        content="Discover a variety of delicious meals and treats at Tasty Treats Hub. Enjoy pizzas, burgers, pasta, sushi, and more!">
     <title>Tasty Treats Hub</title>
     <style>
         /* Global Styles */
@@ -46,7 +48,8 @@
         }
 
         nav ul li a:hover {
-            color: #ff7f50; /* Hover color */
+            color: #ff7f50;
+            /* Hover color */
         }
 
         #admin_dash {
@@ -151,6 +154,7 @@
                 font-size: 1.8em;
                 text-align: center;
             }
+
             nav ul li a {
                 font-size: 1em;
                 padding: 10px;
@@ -159,18 +163,21 @@
 
         /* Header Styling */
         .header .container {
-            max-width: unset; /* Allows the container to span fully */
+            max-width: unset;
+            /* Allows the container to span fully */
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 15px 20px;
-            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+            background-color: rgba(0, 0, 0, 0.8);
+            /* Semi-transparent background */
         }
 
         /* Navbar Styling */
         .navbar-list {
             display: flex;
-            gap: 30px; /* Space between menu items */
+            gap: 30px;
+            /* Space between menu items */
             list-style: none;
             margin: 0;
             padding: 0;
@@ -189,9 +196,12 @@
             transition: color 0.3s, transform 0.3s;
         }
 
-        .navbar-link:hover, .navbar-link:focus-visible {
-            color: #ff7f50; /* Highlight on hover or focus */
-            transform: scale(1.1); /* Slightly enlarge on hover */
+        .navbar-link:hover,
+        .navbar-link:focus-visible {
+            color: #ff7f50;
+            /* Highlight on hover or focus */
+            transform: scale(1.1);
+            /* Slightly enlarge on hover */
         }
 
         .navbar-link.active::after {
@@ -227,16 +237,16 @@
         }
     </style>
 </head>
+
 <body>
+
     <!-- Navigation Bar -->
     <header class="header">
         <div class="container">
-            <!-- Logo -->
             <a href="#" class="logo">
                 <img src="./assets/images/logobgr.png" alt="Tasty Treats Hub" width="150" height="100">
             </a>
     
-            <!-- Navigation Bar -->
             <nav class="navbar">
                 <ul class="navbar-list">
                     <li class="navbar-item">
@@ -268,19 +278,19 @@
             </nav>
         </div>
     </header>
-    
+
     <!-- Page Title -->
     <h1>Flavors of Delight</h1>
 
     <!-- Menu Items -->
-    <div class="menu-container">
-        <div class="menu-item">
+    <div class="menu-container" id="menuContainer">
+        <!-- <div class="menu-item">
             <img src="./assets/images/Pizza.jpg" alt="Image of Italian Delight Pizza">
             <h3>Italian Delight Pizza</h3>
             <div class="price">$12.99</div>
             <p class="description">A classic Italian pizza topped with fresh mozzarella, tomato sauce, and basil.</p>
             
-            <!-- Size Selection -->
+            Size Selection
             <div class="size-selection">
                 <label>
                     <input type="radio" name="size-pizza" value="medium" checked> Medium
@@ -291,66 +301,39 @@
             </div>
             
             <button class="cart-btn">Add to Cart</button>
-        </div>
-        <div class="menu-item">
-            <img src="./assets/images/Burger.jpg" alt="Image of Classic Juicy Burger">
-            <h3>Classic Juicy Burger</h3>
-            <div class="price">$8.99</div>
-            <p class="description">Juicy grilled beef patty with lettuce, tomato, and a soft sesame bun.</p>
+        </div> -->
 
-            <!-- Size Selection -->
-            <div class="size-selection">
-                <label>
-                    <input type="radio" name="size-burger" value="medium" checked> Medium
-                </label>
-                <label>
-                    <input type="radio" name="size-burger" value="large"> Large
-                </label>
-            </div>
-            
-            <button class="cart-btn">Add to Cart</button>
-        </div>
-        <div class="menu-item">
-            <img src="./assets/images/Pasta.jpg" alt="Image of Creamy Alfredo Pasta">
-            <h3>Creamy Alfredo Pasta</h3>
-            <div class="price">$10.99</div>
-            <p class="description">Creamy Alfredo sauce served over freshly made fettuccine pasta.</p>
+    </div>
 
-            <!-- Size Selection -->
-            <div class="size-selection">
-                <label>
-                    <input type="radio" name="size-pasta" value="medium" checked> Medium
-                </label>
-                <label>
-                    <input type="radio" name="size-pasta" value="large"> Large
-                </label>
-            </div>
-            
-            <button class="cart-btn">Add to Cart</button>
-        </div>
-        <div class="menu-item">
-            <img src="./assets/images/Sushi.jpg" alt="Image of Fresh Ocean Sushi">
-            <h3>Fresh Ocean Sushi</h3>
-            <div class="price">$15.99</div>
-            <p class="description">Assorted fresh sushi rolls with salmon, tuna, and avocado.</p>
+    <script>document.addEventListener('DOMContentLoaded', () => {
+            fetch('php/getmenu.php')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch menu data');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.error) {
+                        console.error(data.error);
+                        return;
+                    }
+                    renderMenu(data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
 
-            <!-- Size Selection -->
-            <div class="size-selection">
-                <label>
-                    <input type="radio" name="size-sushi" value="medium" checked> Medium
-                </label>
-                <label>
-                    <input type="radio" name="size-sushi" value="large"> Large
-                </label>
-            </div>
-            
-            <button class="cart-btn">Add to Cart</button>
-        </div>
-        <div class="menu-item">
-            <img src="./assets/images/Ice-cream.jpg" alt="Image of Dreamy Vanilla Scoop">
-            <h3>Dreamy Vanilla Scoop</h3>
-            <div class="price">$5.99</div>
-            <p class="description">Rich and creamy vanilla ice cream topped with chocolate syrup.</p>
+        function renderMenu(menuItems) {
+            const menuContainer = document.getElementById('menuContainer'); // Ensure there is an element with id "menuContainer"
+            menuItems.forEach(item => {
+                const menuCard = `
+            <div class="menu-item">
+            <img src="${item.image}" alt="${item.name}">
+            <h3>${item.name}</h3>
+            <div class="price">$${item.price.toFixed(2)}</div>
+            <p class="description">${item.description}</p>
 
             <!-- Size Selection -->
             <div class="size-selection">
@@ -363,7 +346,11 @@
             </div>
             
             <button class="cart-btn">Add to Cart</button>
-        </div>
-    </div>
+        </div>`;
+                menuContainer.insertAdjacentHTML('beforeend', menuCard);
+            });
+        }
+    </script>
 </body>
+
 </html>
