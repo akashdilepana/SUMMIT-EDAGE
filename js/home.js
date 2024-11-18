@@ -212,6 +212,7 @@ document.getElementById('reservation').addEventListener('submit', function (even
   const phone = document.querySelector('input[name="phone"]').value;
   const date = document.querySelector('input[name="reservation-date"]').value;
   const time = document.querySelector('input[name="time"]').value;
+  const person = document.querySelector('input[name="person"]').value;
   const message = document.querySelector('textarea[name="message"]').value;
 
   if (name && phone && date && time && message) {
@@ -237,6 +238,7 @@ document.getElementById('reservation').addEventListener('submit', function (even
             document.querySelector('input[name="phone"]').value = '';
             document.querySelector('input[name="reservation-date"]').value = '';
             document.querySelector('input[name="time"]').value = '';
+            document.querySelector('input[name="person"]').value = '';
             document.querySelector('textarea[name="message"]').value = '';
           });
         } else {

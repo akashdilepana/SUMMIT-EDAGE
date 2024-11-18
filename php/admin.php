@@ -43,8 +43,9 @@ switch ($option) {
         $response = $stmt->fetchAll(PDO::FETCH_ASSOC);
         break;
 
-    default:
-        $response = ['error' => 'Invalid option'];
+    case 'reservation':
+        $stmt = $conn->query("SELECT * FROM reservation");
+        $response = $stmt->fetchAll(PDO::FETCH_ASSOC);
         break;
 }
 

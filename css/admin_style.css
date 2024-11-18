@@ -225,6 +225,14 @@ header {
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+#reservation-table {
+    background: linear-gradient(135deg, #d3a84c, #DDD1C1, #D8C99E, #C0B283);
+    padding: 30px;
+    margin-top: 20px;
+    border-radius: 15px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 .card-block {
     padding: 1.25rem;
 }
