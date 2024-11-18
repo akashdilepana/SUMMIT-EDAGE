@@ -1,25 +1,47 @@
-$('#addUserBtn').click(function () {
-    $('#saveBtn').data('mode', 'save');
-    $('#saveBtn').html('<i class="icon feather icon-save"></i>Save');
-    clearForm();
-    $('#tableSection').hide();
-    $('#userFormModal').modal('show');
+
+function clearForm() {
+    console.log('Clearing form...');
+
+    $('#name').val(''); 
+    $('#username').val('');
+    $('#userimagePreview').hide().attr('src', ''); 
+
+    if (typeof user_type !== 'undefined' && typeof user_type.clear === 'function') {
+        user_type.clear(); 
+    } else {
+        console.warn('user_type is not defined or clear method is unavailable.');
+    }
+
+    $('#saveBtn')
+        .removeData('id') 
+        .removeData('mode')
+        .html('<i class="icon feather icon-save"></i>Save'); 
+}
+$('#userFormModal').on('hidden.bs.modal', function () {
+    clearForm(); 
+    console.log('Modal closed and form cleared');
 });
+$('#addUserBtn').click(function () {
+    clearForm(); 
+    $('#saveBtn').data('mode', 'save'); 
+    $('#saveBtn').html('<i class="icon feather icon-save"></i>Save');
+    $('#tableSection').hide(); 
+    $('#userFormModal').modal('show'); 
+});
+
 $('.cls-card').click(function () {
+    $('#name').val(''); 
+    $('#username').val(''); 
+    $('#userimagePreview').hide().attr('src', '');
+    user_type.clear();
+    $('#saveBtn')
+        .removeData('id') 
+        .removeData('mode')
+        .html('<i class="icon feather icon-save"></i>Save');
     $('#userFormModal').modal('hide');
     $('#tableSection').fadeIn();
 });
-function clearForm() {
-    $('#formSection').find('input[type!=search]').val('');
-    $('#formSection').find('select').each(function () {
-        if ($(this).data('select')) {
-            if ($(this).data('select').ajax) {
-                $(this).data('select').data.data = [];
-            }
-            $(this).data('select').set('');
-        }
-    });
-}
+
 
 $(document).on('click', '.editrec', function () {
     let id = $(this).parents('tr').data('id');
@@ -37,7 +59,7 @@ $(document).on('click', '.editrec', function () {
             $('#username').val(data.username);
             if (data.image) {
                 $('#userimagePreview')
-                    .attr('src', `${data.image}`) 
+                    .attr('src', `${data.image}`)
                     .show();
             } else {
                 $('#userimagePreview').hide();
@@ -46,12 +68,10 @@ $(document).on('click', '.editrec', function () {
                 user_type.setData([{ value: data.userType.id, text: data.userTypeName }]);
                 user_type.set(data.userType.id);
             };
-            
+
             $('#saveBtn').data('mode', 'update');
             $('#saveBtn').html('<i class="icon feather icon-save"></i>Update');
             $('#saveBtn').data('id', id);
-        
-
             $('#userFormModal').modal('show');
             $('#tableSection').hide();
         })
@@ -63,6 +83,7 @@ $(document).on('click', '.editrec', function () {
 
 
 document.getElementById('saveBtn').addEventListener('click', function () {
+    clearForm();
     var name = document.getElementById('name').value.trim();
     var username = document.getElementById('username').value.trim();
 
@@ -72,7 +93,7 @@ document.getElementById('saveBtn').addEventListener('click', function () {
     } else {
         var userType = 2;
     }
-    var imageInput = document.getElementById('userimage'); 
+    var imageInput = document.getElementById('userimage');
 
     if (name === '') {
         Swal.fire("Empty Name!", "Please Enter a Valid Name!", "warning");
@@ -137,6 +158,7 @@ document.getElementById('saveBtn').addEventListener('click', function () {
             } else {
                 Swal.fire('Successfull!', 'User has been updated.', 'success');
                 dtable.ajax.reload();
+                clearForm()
                 $('#userFormModal').modal('hide');
                 document.getElementById('tableSection').style.display = 'block';
             }
@@ -184,7 +206,7 @@ $(document).on('click', '.delrec', function () {
                 Swal.fire('Error!', result.value.msg, 'error');
             } else {
                 Swal.fire('Successfull!', 'User has been Deactivated !', 'success');
-                dtable.ajax.reload(null, false); // Reload data without resetting pagination
+                dtable.ajax.reload(null, false);
 
                 $('#userFormModal').modal('hide');
                 document.getElementById('tableSection').style.display = 'block';

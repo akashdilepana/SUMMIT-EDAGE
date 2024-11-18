@@ -186,7 +186,7 @@
                             </table>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
@@ -321,11 +321,10 @@
         </div>
 
     </div>
-    <!-- Scripts -->
-    <!-- jQuery (Bootstrap's JavaScript depends on this) -->
 
-    <!-- Bootstrap JS -->
     <script src="./js/js/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.8/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="./js/js/bootstrap.min.js"></script>
     <script src="./js/js/datatables.min.js"></script>
     <script src="./js/js/dataTables.responsive.min.js"></script>
@@ -337,14 +336,11 @@
 
 
     <script>
-
-        // Logout function
         function logout() {
             fetch('php/logout.php')
                 .then(response => response.text())
                 .then(data => {
                     if (data.trim() === "logged_out") {
-                        // Redirect to home page after logout to show login button
                         window.location.href = 'home.html';
                     }
                 })
@@ -365,10 +361,7 @@
 
 
         closeButton.addEventListener('click', () => {
-            // Show the dashboard section
             dashboard.style.display = 'block';
-
-            // Hide the table and close button
             propertyTable.style.display = 'none';
             menuTable.style.display = 'none';
         });
