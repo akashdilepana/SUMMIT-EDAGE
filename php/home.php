@@ -11,8 +11,11 @@ echo json_encode([
     "user_id" => $_SESSION['user_id'],
     "username" => $_SESSION['username'],
     "usertype" => $_SESSION['usertype'],
-    "name" => $_SESSION['name']
+    "name" => $_SESSION['name'],
+    "image" => $_SESSION['image']
+
     
 
-]);
+]); 
+
 ?>

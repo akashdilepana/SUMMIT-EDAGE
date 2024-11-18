@@ -35,9 +35,10 @@
     </form>
   </div>
 
+  <script src="js/js/sweetalert2.js"></script>
   <script>
     document.getElementById('loginForm').addEventListener('submit', function (event) {
-      event.preventDefault(); 
+      event.preventDefault();
 
       const username = document.querySelector('input[name="username"]').value;
       const password = document.querySelector('input[name="password"]').value;
@@ -53,19 +54,41 @@
           .then(response => response.text())
           .then(data => {
             if (data.trim() === 'ok') {
-              window.location.href = 'home.html';
-            } else {
-              alert('Invalid username or password');
+              window.location.href = 'home.html';  // Redirect to home if login is successful
+            } else if (data.trim() === 'inactive_or_no_user') {
+              // Show SweetAlert for deactivated or non-existing user
+              Swal.fire({
+                icon: 'error',
+                title: 'User Deactivated or Not Found',
+                text: 'The account is either deactivated or does not exist.',
+              });
+            } else if (data.trim() === 'no') {
+              // Show SweetAlert for wrong password
+              Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Server Error',
+              });
             }
-            
           })
           .catch(error => {
             console.error('Error:', error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'An error occurred, please try again later.',
+            });
           });
       } else {
-        alert('Please fill in all fields');
+        // Show SweetAlert if fields are empty
+        Swal.fire({
+          icon: 'warning',
+          title: 'Missing Fields',
+          text: 'Please fill in all fields.',
+        });
       }
     });
+
   </script>
 
 </body>

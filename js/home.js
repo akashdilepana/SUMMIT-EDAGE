@@ -212,6 +212,7 @@ document.getElementById('reservation').addEventListener('submit', function (even
   const phone = document.querySelector('input[name="phone"]').value;
   const date = document.querySelector('input[name="reservation-date"]').value;
   const time = document.querySelector('input[name="time"]').value;
+  const person = document.querySelector('input[name="person"]').value;
   const message = document.querySelector('textarea[name="message"]').value;
 
   if (name && phone && date && time && message) {
@@ -237,6 +238,7 @@ document.getElementById('reservation').addEventListener('submit', function (even
             document.querySelector('input[name="phone"]').value = '';
             document.querySelector('input[name="reservation-date"]').value = '';
             document.querySelector('input[name="time"]').value = '';
+            document.querySelector('input[name="person"]').value = '';
             document.querySelector('textarea[name="message"]').value = '';
           });
         } else {
@@ -262,3 +264,50 @@ document.getElementById('reservation').addEventListener('submit', function (even
   }
 
 });
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  fetch('php/getmenu.php')
+      .then(response => {
+          if (!response.ok) {
+              throw new Error('Failed to fetch menu data');
+          }
+          return response.json();
+      })
+      .then(data => {
+          if (data.error) {
+              console.error(data.error);
+              return;
+          }
+          renderMenu(data);
+      })
+      .catch(error => {
+          console.error('Error:', error);
+      });
+});
+
+function renderMenu(menuItems) {
+  const menuContainer = document.getElementById('menuContainer'); // Ensure there is an element with id "menuContainer"
+  menuItems.forEach(item => {
+      const menuCard = `
+      <li>
+        <div class="menu-card hover:card">
+          <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
+            <img src="${item.image}" width="100" height="100" loading="lazy" alt="${item.name}" class="img-cover">
+          </figure>
+          <div>
+            <div class="title-wrapper">
+              <h3 class="title-3">
+                <a href="" class="card-title">${item.name}</a>
+              </h3>
+              <span class="span title-2">$${item.price.toFixed(2)}</span>
+            </div>
+            <p class="card-text label-1">
+              ${item.description}
+            </p>
+          </div>
+        </div>
+      </li>`;
+      menuContainer.insertAdjacentHTML('beforeend', menuCard);
+  });
+}
