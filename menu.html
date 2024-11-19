@@ -264,14 +264,19 @@
                             <span class="span">About Us</span>
                         </a>
                     </li>
-                    <li class="navbar-item">
+                    <!-- <li class="navbar-item">
                         <a href="#contact" class="navbar-link">
                             <span class="span">Contact</span>
                         </a>
-                    </li>
+                    </li> -->
                     <li class="navbar-item" id="admin_dash" style="display: none;">
                         <a href="adminDashboard.html" class="navbar-link">
                             <span class="span">Admin Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="navbar-item" id="admin_dash" >
+                        <a href="cart.html" class="navbar-link">
+                            <span class="span">cart</span>
                         </a>
                     </li>
                 </ul>
@@ -305,51 +310,56 @@
 
     </div>
 
-    <script>document.addEventListener('DOMContentLoaded', () => {
-            fetch('php/getmenu.php')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Failed to fetch menu data');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.error) {
-                        console.error(data.error);
-                        return;
-                    }
-                    renderMenu(data);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        });
-
-        function renderMenu(menuItems) {
-            const menuContainer = document.getElementById('menuContainer'); // Ensure there is an element with id "menuContainer"
-            menuItems.forEach(item => {
-                const menuCard = `
-            <div class="menu-item">
-            <img src="${item.image}" alt="${item.name}">
-            <h3>${item.name}</h3>
-            <div class="price">$${item.price.toFixed(2)}</div>
-            <p class="description">${item.description}</p>
-
-            <!-- Size Selection -->
-            <div class="size-selection">
-                <label>
-                    <input type="radio" name="size-icecream" value="medium" checked> Medium
-                </label>
-                <label>
-                    <input type="radio" name="size-icecream" value="large"> Large
-                </label>
-            </div>
-            
-            <button class="cart-btn">Add to Cart</button>
-        </div>`;
-                menuContainer.insertAdjacentHTML('beforeend', menuCard);
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        fetch('php/getmenu.php')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch menu data');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.error) {
+                    console.error(data.error);
+                    return;
+                }
+                renderMenu(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
             });
+    });
+
+    function renderMenu(menuItems) {
+        const menuContainer = document.getElementById('menuContainer');
+        menuItems.forEach(item => {
+            const menuCard = `
+                <div class="menu-item">
+                    <img src="${item.image}" alt="${item.name}">
+                    <h3>${item.name}</h3>
+                    <div class="price">$${item.price.toFixed(2)}</div>
+                    <p class="description">${item.description}</p>
+                    <button idd="${item.id}" class="cart-btn" 
+                        onclick="addToCart(${item.id}, '${item.name}', '${item.description}', '${item.image}', ${item.price})">
+                        Add to Cart
+                    </button>
+                </div>`;
+            menuContainer.insertAdjacentHTML('beforeend', menuCard);
+        });
+    }
+
+    function addToCart(id, name, description, image, price) {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const existingItem = cart.find(item => item.id === id);
+        if (existingItem) {
+            existingItem.quantity += 1; // Increment quantity if item already in cart
+        } else {
+            cart.push({ id, name, description, image, price, quantity: 1 });
         }
+        localStorage.setItem('cart', JSON.stringify(cart));
+        alert(`${name} added to the cart!`);
+    }
     </script>
 </body>
 

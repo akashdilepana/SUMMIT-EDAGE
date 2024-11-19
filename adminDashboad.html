@@ -62,9 +62,9 @@
                     <img src="./assets/images/634.jpg" alt="Users">
                     <h3>Users</h3>
                 </div>
-                <div class="option" id="food">
-                    <img src="./assets/images/532.jpg" alt="Food">
-                    <h3>Food</h3>
+                <div class="option" id="oders">
+                    <img src="./assets/images/532.jpg" alt="Oders">
+                    <h3>Oders</h3>
                 </div>
                 <div class="option" id="menu">
                     <img src="./assets/images/111.webp" alt="Menu">
@@ -177,6 +177,36 @@
                     <div class="card-block p-b-0">
                         <div class="table-responsive">
                             <table class="table table-hover table-bordered m-b-0" id="table3">
+                                <thead>
+                                    <tr>
+
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- oders Table Section -->
+        <div class="row anyTables" id="oders-table" style="display: none;">
+            <div class="">
+                <div class="card" style="width: 1300px;">
+                    <div class="card-header">
+                        <h6>Reservation</h6>
+                        <div class="card-header-right">
+                            <button class="cls-card" id="close-button"><i class="close">X</i></button>
+                            <ul class="list-unstyled card-option">
+                                <li><i class="feather icon-maximize full-card"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-block p-b-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-bordered m-b-0" id="table4">
                                 <thead>
                                     <tr>
 
@@ -360,12 +390,14 @@
         const propertyTable = document.getElementById('property-table');
         const menuTable = document.getElementById('menu-table');
         const closeButton = document.getElementById('close-button');
+        const oderTable = document.getElementById('oders-table');
 
 
         closeButton.addEventListener('click', () => {
             dashboard.style.display = 'block';
             propertyTable.style.display = 'none';
             menuTable.style.display = 'none';
+            oderTable.style.display = 'none';
         });
         var user_type = new SlimSelect({
             select: '#user_type',
@@ -388,6 +420,7 @@
         var dtable;
         var dmtable;
         var drtable;
+        var dotable;
 
 
         document.querySelectorAll('.option img').forEach(img => {
@@ -556,6 +589,55 @@
                         }
 
                     })
+                } else if (img.parentElement.id === 'oders') {
+
+                    $('#dashboard').hide();
+                    $('#oders-table').fadeIn();
+                    dotable = $('#table4').DataTable({
+                        "aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
+                        "pageLength": 5,
+                        "ordering": true,
+                        "autoWidth": false,
+                        "processing": true,
+                        // "serverSide": true,
+                        // "order": [[0, "desc"]],
+                        // "searchHighlight": true,
+                        "searchDelay": 350,
+                        "ajax": {
+                            "url": "php/admin.php",
+                            "type": "GET",
+                            "data": function (d) {
+                                d.option = 'oders';
+                            },
+                            "dataSrc": "",
+                            error: function (xhr, error, code) {
+                                console.error("Error loading data:", xhr.responseText);
+                            }
+                        },
+                        "columns": [
+                            { data: 'order_id', title: 'Oder_id' },
+                            { data: 'customer_name', title: 'Customer' },
+                            { data: 'item_names', title: 'Item_name' },
+                            { data: 'item_totals', title: 'Item Total Price' },
+                            { data: 'payment_method', title: 'Payment_method' },
+                            { data: 'total_amount', title: 'Total' },
+                        ],
+                        "language": {
+                            'loadingRecords': '&nbsp;',
+                            // 'processing': '<div class="loader2"></div>'
+                        }, "createdRow": function (row, data) {
+                            let action_td = document.createElement('td');
+                            $(action_td).addClass('text-center');
+                            $(row).append(action_td);
+                            var temp = '<div style="white-space:nowrap;"><P>' +
+                                '<h6 style="word-break: break-all;word-wrap: break-word;" class="m-b-0">' + data['customer_name'] + '</h6><div class="d-inline-block">' +
+                                ' <h6 style="word-break: break-all;word-wrap: break-word;" class="m-b-0">' + data['customer_phone'] +
+                                '</h6><h6 style="word-break: break-all;word-wrap: break-word;" class="m-b-0">' + data['delivery_address'] + '</div></div>';
+                            $(row).find('td').eq(1).html(temp);
+                            $(row).data('id', data['id']);
+                        }
+
+                    })
                 }
 
             });
@@ -575,7 +657,11 @@
                 $(td).html('<label class="text-center" style="white-space: nowrap">User</label>');
             }
         }
-
+        $('.cls-card').click(function () {
+            $('#oders-table').hide();
+            $('#reservation-table').hide();
+            $('#dashboard').fadeIn();
+        });
     </script>
     <script src="./js/user.js"></script>
     <script src="./js/menu.js"></script>

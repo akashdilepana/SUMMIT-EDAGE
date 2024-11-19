@@ -1,163 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shopping Cart</title>
-  <style>
-    /* CSS */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #333;
-      color: white;
-    }
-
-    .header {
-      background-color: #ffd700; /* Gold color */
-      padding: 15px;
-      color: #333;
-    }
-
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .navbar img {
-      width: 100px; /* Adjust the logo size */
-      height: auto;
-    }
-
-    .navbar nav {
-      display: flex;
-    }
-
-    .navbar nav a {
-      color: #333;
-      text-decoration: none;
-      margin: 0 15px;
-    }
-
-    .shopping-cart, .payment-form, .info-form {
-      max-width: 800px;
-      margin: 20px auto;
-      padding: 20px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      background-color: #444; /* Dark background for sections */
-    }
-
-    .cart-steps {
-      display: flex;
-      justify-content: space-around;
-      margin-bottom: 20px;
-    }
-
-    .step {
-      padding: 10px;
-      border: 1px solid #ffd700;
-      border-radius: 5px;
-    }
-
-    .step.active {
-      background-color: #ffd700;
-      color: black;
-    }
-
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #ddd;
-    }
-
-    .item-info {
-      display: flex;
-      align-items: center;
-    }
-
-    .item-info img {
-      width: 60px;
-      height: 60px;
-      margin-right: 10px;
-    }
-
-    .quantity {
-      display: flex;
-      align-items: center;
-    }
-
-    .quantity button {
-      padding: 5px;
-      margin: 0 5px;
-      background-color: #ffd700;
-      border: none;
-      cursor: pointer;
-      color: black;
-    }
-
-    .cart-summary {
-      text-align: right;
-    }
-
-    button {
-      padding: 10px 20px;
-      margin: 10px 5px;
-      border: none;
-      background-color: #ffd700;
-      color: black;
-      cursor: pointer;
-    }
-
-    button:hover {
-      opacity: 0.8;
-    }
-
-    .payment-methods label {
-      display: block;
-      margin-bottom: 10px;
-    }
-
-    .form-group {
-      margin-bottom: 15px;
-    }
-
-    .form-group input {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      background-color: #555;
-      color: white;
-    }
-
-    .payment-form {
-      display: none;
-    }
-
-    .payment-form.active {
-      display: block;
-    }
-
-    .back-to-cart {
-      background-color: #333;
-      border: 1px solid #ffd700;
-      color: #ffd700;
-      padding: 10px;
-      cursor: pointer;
-    }
-
-    .back-to-cart:hover {
-      background-color: #ffd700;
-      color: #333;
-    }
-  </style>
+  <link rel="stylesheet" href="./css/cart.css">
 </head>
+
 <body>
   <header class="header">
     <div class="navbar">
@@ -165,7 +15,7 @@
       <nav>
         <a href="Home">Home</a>
         <a href="About">About Us</a>
-        <a href="Our Menu">Our Menu</a>
+        <a href="menu.html">Our Menu</a>
         <a href="Contact">Contact Us</a>
       </nav>
     </div>
@@ -180,45 +30,11 @@
     </div>
 
     <div class="cart-table">
-      <div class="cart-item">
-        <div class="item-info">
-            <img src="./assets/images/Pasta.png" alt="Pasta" height="100" width="100">
-          <div>
-            <p class="item-name">Pasta</p>
-            <p class="item-desc">Cursus / Dictum / Risus</p>
-          </div>
-        </div>
-        <p class="item-price">$23.00</p>
-        <div class="quantity">
-          <button class="decrease">-</button>
-          <input type="number" value="1" class="qty-input">
-          <button class="increase">+</button>
-        </div>
-        <p class="item-total">$23.00</p>
-        <button class="remove-btn">x</button>
-      </div>
-
-      <div class="cart-item">
-        <div class="item-info">
-            <img src="./assets/images/Pizza.webp" alt="Pizza" height="200" width="100">
-          <div>
-            <p class="item-name">Pizza</p>
-            <p class="item-desc">Cursus / Dictum / Risus</p>
-          </div>
-        </div>
-        <p class="item-price">$23.50</p>
-        <div class="quantity">
-          <button class="decrease">-</button>
-          <input type="number" value="1" class="qty-input">
-          <button class="increase">+</button>
-        </div>
-        <p class="item-total">$23.50</p>
-        <button class="remove-btn">x</button>
-      </div>
+      <!-- Cart items will be dynamically added here -->
     </div>
 
     <div class="cart-summary">
-      <p>Subtotal: <span id="subtotal">$46.50</span></p>
+      <p>Subtotal: <span id="subtotal"></span></p>
       <div style="display: flex; justify-content: space-between;">
         <button id="continue-shopping">Continue Shopping</button>
         <button id="next-step">Next Step</button>
@@ -226,6 +42,7 @@
     </div>
   </main>
 
+  <!-- Information Section -->
   <div id="info-section" class="info-form payment-form">
     <h2>Enter your Info</h2>
     <form>
@@ -244,6 +61,7 @@
     </div>
   </div>
 
+  <!-- Payment Section -->
   <div id="payment-section" class="payment-form">
     <h2>Select Payment Method</h2>
     <div class="payment-methods">
@@ -258,7 +76,7 @@
       </label>
     </div>
 
-    <!-- Credit/Debit Card Form -->
+    <!-- Card Form -->
     <div id="card-form" class="payment-form">
       <h3>Card Details</h3>
       <div class="form-group">
@@ -281,7 +99,7 @@
       <p>Proceed to PayPal to complete your payment.</p>
     </div>
 
-    <!-- Cash Form -->
+    <!-- Cash on Delivery Form -->
     <div id="cash-form" class="payment-form">
       <h3>Cash on Delivery</h3>
       <p>Please have the exact amount ready upon delivery.</p>
@@ -289,106 +107,185 @@
 
     <div style="display: flex; justify-content: space-between;">
       <button class="back-to-cart" id="back-to-cart-payment">Back to Cart</button>
-      <button onclick="processPayment('card')">Pay Now</button>
+      <button onclick="processPayment()">Pay Now</button>
     </div>
   </div>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const updateTotal = () => {
-        const items = document.querySelectorAll(".cart-item");
-        let subtotal = 0;
+    document.addEventListener('DOMContentLoaded', () => {
+      const cartData = JSON.parse(localStorage.getItem('cart')) || [];
+      renderCart(cartData);
 
-        items.forEach(item => {
-          const price = parseFloat(item.querySelector(".item-price").textContent.replace('$', ''));
-          const qty = parseInt(item.querySelector(".qty-input").value);
-          const total = price * qty;
-          item.querySelector(".item-total").textContent = `$${total.toFixed(2)}`;
-          subtotal += total;
-        });
-
-        document.getElementById("subtotal").textContent = `$${subtotal.toFixed(2)}`;
-      };
-
-      document.querySelectorAll(".increase").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-          const input = e.target.parentElement.querySelector(".qty-input");
-          input.value = parseInt(input.value) + 1;
-          updateTotal();
-        });
-      });
-
-      document.querySelectorAll(".decrease").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-          const input = e.target.parentElement.querySelector(".qty-input");
-          if (parseInt(input.value) > 1) {
-            input.value = parseInt(input.value) - 1;
-            updateTotal();
-          }
-        });
-      });
-
-      document.querySelectorAll(".remove-btn").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-          e.target.closest(".cart-item").remove();
-          updateTotal();
-        });
-      });
-
-      document.getElementById("next-step").addEventListener("click", () => {
-        document.getElementById("cart-step").classList.remove("active");
-        document.getElementById("info-step").classList.add("active");
-        document.querySelector(".shopping-cart").style.display = "none";
-        document.getElementById("info-section").style.display = "block";
-      });
-
-      document.getElementById("back-to-cart-info").addEventListener("click", () => {
-        document.querySelector(".shopping-cart").style.display = "block";
-        document.getElementById("info-section").style.display = "none";
-        document.getElementById("info-step").classList.remove("active");
-        document.getElementById("cart-step").classList.add("active");
-      });
-
-      document.getElementById("next-payment").addEventListener("click", () => {
-        document.getElementById("info-step").classList.remove("active");
-        document.getElementById("payment-step").classList.add("active");
-        document.getElementById("info-section").style.display = "none";
-        document.getElementById("payment-section").style.display = "block";
-      });
-
-      document.getElementById("back-to-cart-payment").addEventListener("click", () => {
-        document.querySelector(".shopping-cart").style.display = "block";
-        document.getElementById("payment-section").style.display = "none";
-        document.getElementById("payment-step").classList.remove("active");
-        document.getElementById("cart-step").classList.add("active");
+      // Event listeners for quantity change and removal
+      document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('increase')) {
+          updateQuantity(e.target.dataset.id, 1);
+        } else if (e.target.classList.contains('decrease')) {
+          updateQuantity(e.target.dataset.id, -1);
+        } else if (e.target.classList.contains('remove-btn')) {
+          removeItem(e.target.dataset.id);
+        } else if (e.target.id === 'next-step') {
+          goToNextStep();
+        } else if (e.target.id === 'continue-shopping') {
+          // Add your continue shopping logic here
+        } else if (e.target.id === 'back-to-cart-info') {
+          showCartSection();
+        } else if (e.target.id === 'back-to-cart-payment') {
+          showCartSection();
+        } else if (e.target.id === 'next-payment') {
+          goToPaymentStep();
+        }
       });
     });
 
-    // Show payment form based on selected method
-    function showPaymentForm(method) {
+    function renderCart(cartItems) {
+      const cartTable = document.querySelector('.cart-table');
+      cartTable.innerHTML = ''; // Clear the table before re-rendering
+
+      if (cartItems.length === 0) {
+        cartTable.innerHTML = '<p>Your cart is empty.</p>';
+        return;
+      }
+
+      cartItems.forEach(item => {
+        const cartItemElement = document.createElement('div');
+        cartItemElement.classList.add('cart-item');
+        cartItemElement.innerHTML = `
+                <div class="item-info">
+                    <img src="${item.image}" alt="${item.name}">
+                    <div>
+                        <p>${item.name}</p>
+                        <p>$${item.price}</p>
+                    </div>
+                </div>
+                <div class="quantity">
+                    <button class="decrease" data-id="${item.id}">-</button>
+                    <span>${item.quantity}</span>
+                    <button class="increase" data-id="${item.id}">+</button>
+                </div>
+                <div class="subtotal">
+                    $${(item.price * item.quantity).toFixed(2)}
+                </div>
+                <button class="remove-btn" data-id="${item.id}">Remove</button>
+            `;
+        cartTable.appendChild(cartItemElement);
+      });
+
+      const subtotal = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+      document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+    }
+
+    function updateQuantity(id, change) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const item = cart.find(i => i.id === id);
+      if (item) {
+        item.quantity += change;
+        if (item.quantity < 1) item.quantity = 1;
+        localStorage.setItem('cart', JSON.stringify(cart));
+        renderCart(cart);
+      }
+    }
+
+    function removeItem(id) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart = cart.filter(item => item.id !== id);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart(cart);
+    }
+
+    function goToNextStep() {
+      document.getElementById('cart-step').classList.remove('active');
+      document.getElementById('info-step').classList.add('active');
+      document.querySelector('.shopping-cart').style.display = 'none';
+      document.getElementById('info-section').style.display = 'block';
+    }
+
+    function showCartSection() {
+      document.getElementById('cart-step').classList.add('active');
+      document.getElementById('info-step').classList.remove('active');
+      document.querySelector('.shopping-cart').style.display = 'block';
+      document.getElementById('info-section').style.display = 'none';
+    }
+
+    function goToPaymentStep() {
+      document.getElementById('info-step').classList.remove('active');
+      document.getElementById('payment-step').classList.add('active');
+      document.getElementById('info-section').style.display = 'none';
+      document.getElementById('payment-section').style.display = 'block';
+    }
+
+    // Function to show the appropriate payment form
+    function showPaymentForm(paymentMethod) {
+      // Hide all payment forms first
       document.getElementById('card-form').style.display = 'none';
       document.getElementById('paypal-form').style.display = 'none';
       document.getElementById('cash-form').style.display = 'none';
 
-      if (method === 'card') {
+      // Show the selected payment method's form
+      if (paymentMethod === 'card') {
         document.getElementById('card-form').style.display = 'block';
-      } else if (method === 'paypal') {
+      } else if (paymentMethod === 'paypal') {
         document.getElementById('paypal-form').style.display = 'block';
-      } else if (method === 'cash') {
+      } else if (paymentMethod === 'cash') {
         document.getElementById('cash-form').style.display = 'block';
       }
     }
 
-    // Payment method processing
-    function processPayment(method) {
-      if (method === 'card') {
-        alert("Payment successful via Credit/Debit Card!");
-      } else if (method === 'paypal') {
-        alert("Redirecting to PayPal...");
-      } else if (method === 'cash') {
-        alert("Order confirmed! You will pay in cash upon delivery.");
-      }
+    function processPayment() {
+      alert('Payment successful!');
+      // After payment success, you can redirect or clear cart
     }
+
+    function processPayment() {
+      const name = document.getElementById('name').value;
+      const address = document.getElementById('address').value;
+      const phone = document.getElementById('phone').value;
+      const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+
+      const cartData = JSON.parse(localStorage.getItem('cart')) || [];
+      const totalAmount = cartData.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
+      const paymentDetails = {
+        name: name,
+        address: address,
+        phone: phone,
+        paymentMethod: paymentMethod,
+        totalAmount: totalAmount,
+        cartItems: cartData, // Attach cart items
+      };
+
+      console.log("Payload to be sent:", paymentDetails); // Debugging log
+
+      fetch('php/oder_save.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(paymentDetails), // Ensure proper serialization
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log('Server response:', data); // Debugging log
+          if (data.success) {
+            alert('Payment successful!');
+            localStorage.removeItem('cart');
+          } else {
+            alert(`Error: ${data.error || 'Something went wrong!'}`);
+          }
+        })
+        .catch((error) => {
+          console.error('Error during payment process:', error);
+          alert(`An error occurred: ${error.message}`);
+        });
+    }
+
   </script>
+
 </body>
+
 </html>

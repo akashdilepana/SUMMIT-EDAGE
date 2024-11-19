@@ -209,7 +209,7 @@ header {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-#property-table {
+.anyTables {
     background: linear-gradient(135deg, #d3a84c, #DDD1C1, #D8C99E, #C0B283);
     padding: 30px;
     margin-top: 20px;

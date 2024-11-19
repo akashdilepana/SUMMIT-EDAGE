@@ -1,0 +1,151 @@
+ /* CSS */
+ body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #333;
+    color: white;
+  }
+
+  .header {
+    background-color: #ffd700; /* Gold color */
+    padding: 15px;
+    color: #333;
+  }
+
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .navbar img {
+    width: 100px; /* Adjust the logo size */
+    height: auto;
+  }
+
+  .navbar nav {
+    display: flex;
+  }
+
+  .navbar nav a {
+    color: #333;
+    text-decoration: none;
+    margin: 0 15px;
+  }
+
+  .shopping-cart, .payment-form, .info-form {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #444; /* Dark background for sections */
+  }
+
+  .cart-steps {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+
+  .step {
+    padding: 10px;
+    border: 1px solid #ffd700;
+    border-radius: 5px;
+  }
+
+  .step.active {
+    background-color: #ffd700;
+    color: black;
+  }
+
+  .cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .item-info {
+    display: flex;
+    align-items: center;
+  }
+
+  .item-info img {
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+  }
+
+  .quantity {
+    display: flex;
+    align-items: center;
+  }
+
+  .quantity button {
+    padding: 5px;
+    margin: 0 5px;
+    background-color: #ffd700;
+    border: none;
+    cursor: pointer;
+    color: black;
+  }
+
+  .cart-summary {
+    text-align: right;
+  }
+
+  button {
+    padding: 10px 20px;
+    margin: 10px 5px;
+    border: none;
+    background-color: #ffd700;
+    color: black;
+    cursor: pointer;
+  }
+
+  button:hover {
+    opacity: 0.8;
+  }
+
+  .payment-methods label {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #555;
+    color: white;
+  }
+
+  .payment-form {
+    display: none;
+  }
+
+  .payment-form.active {
+    display: block;
+  }
+
+  .back-to-cart {
+    background-color: #333;
+    border: 1px solid #ffd700;
+    color: #ffd700;
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  .back-to-cart:hover {
+    background-color: #ffd700;
+    color: #333;
+  }
