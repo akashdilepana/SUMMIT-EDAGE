@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart</title>
+  <style>
+    /* CSS */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #333;
+      color: white;
+    }
+
+    .header {
+      background-color: #ffd700; /* Gold color */
+      padding: 15px;
+      color: #333;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar img {
+      width: 100px; /* Adjust the logo size */
+      height: auto;
+    }
+
+    .navbar nav {
+      display: flex;
+    }
+
+    .navbar nav a {
+      color: #333;
+      text-decoration: none;
+      margin: 0 15px;
+    }
+
+    .shopping-cart, .payment-form, .info-form {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #444; /* Dark background for sections */
+    }
+
+    .cart-steps {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 20px;
+    }
+
+    .step {
+      padding: 10px;
+      border: 1px solid #ffd700;
+      border-radius: 5px;
+    }
+
+    .step.active {
+      background-color: #ffd700;
+      color: black;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .item-info {
+      display: flex;
+      align-items: center;
+    }
+
+    .item-info img {
+      width: 60px;
+      height: 60px;
+      margin-right: 10px;
+    }
+
+    .quantity {
+      display: flex;
+      align-items: center;
+    }
+
+    .quantity button {
+      padding: 5px;
+      margin: 0 5px;
+      background-color: #ffd700;
+      border: none;
+      cursor: pointer;
+      color: black;
+    }
+
+    .cart-summary {
+      text-align: right;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 10px 5px;
+      border: none;
+      background-color: #ffd700;
+      color: black;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    .payment-methods label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #555;
+      color: white;
+    }
+
+    .payment-form {
+      display: none;
+    }
+
+    .payment-form.active {
+      display: block;
+    }
+
+    .back-to-cart {
+      background-color: #333;
+      border: 1px solid #ffd700;
+      color: #ffd700;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .back-to-cart:hover {
+      background-color: #ffd700;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="navbar">
+      <img src="logo.png" alt="Restaurant Logo">
+      <nav>
+        <a href="Home">Home</a>
+        <a href="About">About Us</a>
+        <a href="Our Menu">Our Menu</a>
+        <a href="Contact">Contact Us</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="shopping-cart">
+    <h2>Shopping Cart</h2>
+    <div class="cart-steps">
+      <div class="step active" id="cart-step">1. Shopping Cart</div>
+      <div class="step" id="info-step">2. Shopping Info</div>
+      <div class="step" id="payment-step">3. Payment Method</div>
+    </div>
+
+    <div class="cart-table">
+      <div class="cart-item">
+        <div class="item-info">
+            <img src="./assets/images/Pasta.png" alt="Pasta" height="100" width="100">
+          <div>
+            <p class="item-name">Pasta</p>
+            <p class="item-desc">Cursus / Dictum / Risus</p>
+          </div>
+        </div>
+        <p class="item-price">$23.00</p>
+        <div class="quantity">
+          <button class="decrease">-</button>
+          <input type="number" value="1" class="qty-input">
+          <button class="increase">+</button>
+        </div>
+        <p class="item-total">$23.00</p>
+        <button class="remove-btn">x</button>
+      </div>
+
+      <div class="cart-item">
+        <div class="item-info">
+            <img src="./assets/images/Pizza.webp" alt="Pizza" height="200" width="100">
+          <div>
+            <p class="item-name">Pizza</p>
+            <p class="item-desc">Cursus / Dictum / Risus</p>
+          </div>
+        </div>
+        <p class="item-price">$23.50</p>
+        <div class="quantity">
+          <button class="decrease">-</button>
+          <input type="number" value="1" class="qty-input">
+          <button class="increase">+</button>
+        </div>
+        <p class="item-total">$23.50</p>
+        <button class="remove-btn">x</button>
+      </div>
+    </div>
+
+    <div class="cart-summary">
+      <p>Subtotal: <span id="subtotal">$46.50</span></p>
+      <div style="display: flex; justify-content: space-between;">
+        <button id="continue-shopping">Continue Shopping</button>
+        <button id="next-step">Next Step</button>
+      </div>
+    </div>
+  </main>
+
+  <div id="info-section" class="info-form payment-form">
+    <h2>Enter your Info</h2>
+    <form>
+      <label for="name">Full Name</label>
+      <input type="text" id="name" placeholder="Enter full name" required>
+
+      <label for="address">Address</label>
+      <input type="text" id="address" placeholder="Enter address" required>
+
+      <label for="phone">Phone Number</label>
+      <input type="text" id="phone" placeholder="Enter phone number" required>
+    </form>
+    <div style="display: flex; justify-content: space-between;">
+      <button class="back-to-cart" id="back-to-cart-info">Back to Cart</button>
+      <button id="next-payment">Next</button>
+    </div>
+  </div>
+
+  <div id="payment-section" class="payment-form">
+    <h2>Select Payment Method</h2>
+    <div class="payment-methods">
+      <label>
+        <input type="radio" name="payment" value="card" onclick="showPaymentForm('card')"> Credit/Debit Card
+      </label>
+      <label>
+        <input type="radio" name="payment" value="paypal" onclick="showPaymentForm('paypal')"> PayPal
+      </label>
+      <label>
+        <input type="radio" name="payment" value="cash" onclick="showPaymentForm('cash')"> Cash on Delivery
+      </label>
+    </div>
+
+    <!-- Credit/Debit Card Form -->
+    <div id="card-form" class="payment-form">
+      <h3>Card Details</h3>
+      <div class="form-group">
+        <input type="text" id="card-number" placeholder="Card Number" maxlength="19" oninput="formatCardNumber(this)">
+      </div>
+      <div class="form-group">
+        <input type="text" id="card-name" placeholder="Cardholder Name">
+      </div>
+      <div class="form-group">
+        <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5" oninput="formatExpiry(this)">
+      </div>
+      <div class="form-group">
+        <input type="text" id="card-cvv" placeholder="CVV" maxlength="3">
+      </div>
+    </div>
+
+    <!-- PayPal Form -->
+    <div id="paypal-form" class="payment-form">
+      <h3>PayPal</h3>
+      <p>Proceed to PayPal to complete your payment.</p>
+    </div>
+
+    <!-- Cash Form -->
+    <div id="cash-form" class="payment-form">
+      <h3>Cash on Delivery</h3>
+      <p>Please have the exact amount ready upon delivery.</p>
+    </div>
+
+    <div style="display: flex; justify-content: space-between;">
+      <button class="back-to-cart" id="back-to-cart-payment">Back to Cart</button>
+      <button onclick="processPayment('card')">Pay Now</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const updateTotal = () => {
+        const items = document.querySelectorAll(".cart-item");
+        let subtotal = 0;
+
+        items.forEach(item => {
+          const price = parseFloat(item.querySelector(".item-price").textContent.replace('$', ''));
+          const qty = parseInt(item.querySelector(".qty-input").value);
+          const total = price * qty;
+          item.querySelector(".item-total").textContent = `$${total.toFixed(2)}`;
+          subtotal += total;
+        });
+
+        document.getElementById("subtotal").textContent = `$${subtotal.toFixed(2)}`;
+      };
+
+      document.querySelectorAll(".increase").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          const input = e.target.parentElement.querySelector(".qty-input");
+          input.value = parseInt(input.value) + 1;
+          updateTotal();
+        });
+      });
+
+      document.querySelectorAll(".decrease").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          const input = e.target.parentElement.querySelector(".qty-input");
+          if (parseInt(input.value) > 1) {
+            input.value = parseInt(input.value) - 1;
+            updateTotal();
+          }
+        });
+      });
+
+      document.querySelectorAll(".remove-btn").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          e.target.closest(".cart-item").remove();
+          updateTotal();
+        });
+      });
+
+      document.getElementById("next-step").addEventListener("click", () => {
+        document.getElementById("cart-step").classList.remove("active");
+        document.getElementById("info-step").classList.add("active");
+        document.querySelector(".shopping-cart").style.display = "none";
+        document.getElementById("info-section").style.display = "block";
+      });
+
+      document.getElementById("back-to-cart-info").addEventListener("click", () => {
+        document.querySelector(".shopping-cart").style.display = "block";
+        document.getElementById("info-section").style.display = "none";
+        document.getElementById("info-step").classList.remove("active");
+        document.getElementById("cart-step").classList.add("active");
+      });
+
+      document.getElementById("next-payment").addEventListener("click", () => {
+        document.getElementById("info-step").classList.remove("active");
+        document.getElementById("payment-step").classList.add("active");
+        document.getElementById("info-section").style.display = "none";
+        document.getElementById("payment-section").style.display = "block";
+      });
+
+      document.getElementById("back-to-cart-payment").addEventListener("click", () => {
+        document.querySelector(".shopping-cart").style.display = "block";
+        document.getElementById("payment-section").style.display = "none";
+        document.getElementById("payment-step").classList.remove("active");
+        document.getElementById("cart-step").classList.add("active");
+      });
+    });
+
+    // Show payment form based on selected method
+    function showPaymentForm(method) {
+      document.getElementById('card-form').style.display = 'none';
+      document.getElementById('paypal-form').style.display = 'none';
+      document.getElementById('cash-form').style.display = 'none';
+
+      if (method === 'card') {
+        document.getElementById('card-form').style.display = 'block';
+      } else if (method === 'paypal') {
+        document.getElementById('paypal-form').style.display = 'block';
+      } else if (method === 'cash') {
+        document.getElementById('cash-form').style.display = 'block';
+      }
+    }
+
+    // Payment method processing
+    function processPayment(method) {
+      if (method === 'card') {
+        alert("Payment successful via Credit/Debit Card!");
+      } else if (method === 'paypal') {
+        alert("Redirecting to PayPal...");
+      } else if (method === 'cash') {
+        alert("Order confirmed! You will pay in cash upon delivery.");
+      }
+    }
+  </script>
+</body>
+</html>
