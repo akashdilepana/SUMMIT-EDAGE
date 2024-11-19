@@ -30,6 +30,9 @@
             position: sticky;
             top: 0;
             z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         nav ul {
@@ -55,6 +58,25 @@
 
         nav ul li a:hover {
             color: #fff;
+        }
+
+        .cart {
+            color: #FFD700;
+            font-size: 1.5em;
+            cursor: pointer;
+            position: relative;
+            margin-left: 30px;
+        }
+
+        .cart span {
+            background: #FFD700;
+            color: #111;
+            font-size: 0.8em;
+            padding: 2px 6px;
+            border-radius: 50%;
+            position: absolute;
+            top: -10px;
+            right: -10px;
         }
 
         /* Menu Container */
@@ -163,6 +185,14 @@
             margin-right: 10px;
         }
 
+        .payment-form input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
         .payment-form button {
             width: 100%;
             padding: 10px;
@@ -198,9 +228,11 @@
         <ul>
             <li><a href="#home">Home</a></li>
             <li><a href="#menu">Menu</a></li>
+            <li><a href="#cart">Cart</li>
             <li><a href="#about-us">About Us</a></li>
             <li><a href="#contact-us">Contact Us</a></li>
         </ul>
+       
     </nav>
 
     <h1 id="menu">Restaurant Menu</h1>
@@ -209,19 +241,19 @@
             <img src="./assets/images/Pizza.webp" alt="Pizza" height="200" width="100">
             <h2>Pizza</h2>
             <p>Price: $10</p>
-            <button class="checkout-btn" onclick="openModal(10)">Checkout</button>
+            <button class="checkout-btn" onclick="addToCart(10)">Add to Cart</button>
         </div>
         <div class="menu-item">
             <img src="./assets/images/Burger.png" alt="Burger" height="200" width="100">
             <h2>Burger</h2>
             <p>Price: $5</p>
-            <button class="checkout-btn" onclick="openModal(5)">Checkout</button>
+            <button class="checkout-btn" onclick="addToCart(5)">Add to Cart</button>
         </div>
         <div class="menu-item">
             <img src="./assets/images/Pasta.png" alt="Pasta" height="200" width="100">
             <h2>Pasta</h2>
             <p>Price: $8</p>
-            <button class="checkout-btn" onclick="openModal(8)">Checkout</button>
+            <button class="checkout-btn" onclick="addToCart(8)">Add to Cart</button>
         </div>
     </div>
 
@@ -231,24 +263,66 @@
             <button class="close-btn" onclick="closeModal()">&times;</button>
             <h2>Select Payment Method</h2>
             <div class="payment-methods">
-                <label><input type="radio" name="payment" value="card"> Credit/Debit Card</label><br>
-                <label><input type="radio" name="payment" value="paypal"> PayPal</label><br>
-                <label><input type="radio" name="payment" value="cash"> Cash on Delivery</label>
+                <label><input type="radio" name="payment" value="card" onclick="showCardForm()"> Credit/Debit Card</label><br>
+                <label><input type="radio" name="payment" value="paypal" onclick="hideCardForm()"> PayPal</label><br>
+                <label><input type="radio" name="payment" value="cash" onclick="hideCardForm()"> Cash on Delivery</label>
             </div>
-            <button onclick="confirmPayment()">Confirm Payment</button>
+
+            <!-- Card Payment Form -->
+            <div id="card-form" class="payment-form" style="display:none;">
+                <h3>Enter Card Details</h3>
+                <input type="text" placeholder="Card Number" id="card-number" required>
+                <input type="text" placeholder="Expiry Date" id="expiry-date" required>
+                <input type="text" placeholder="CVV" id="cvv" required>
+                <button onclick="confirmPayment()">Confirm Payment</button>
+            </div>
+
+            <!-- Confirmation for PayPal and Cash -->
+            <div id="paypal-form" class="payment-form" style="display:none;">
+                <button onclick="confirmPayment()">Confirm Payment with PayPal</button>
+            </div>
+
+            <div id="cash-form" class="payment-form" style="display:none;">
+                <button onclick="confirmPayment()">Confirm Cash on Delivery</button>
+            </div>
         </div>
     </div>
 
     <script>
         let selectedPrice = 0;
+        let cartCount = 0;
 
-        function openModal(price) {
-            selectedPrice = price;
+        function addToCart(price) {
+            selectedPrice += price;
+            cartCount++;
+            document.getElementById('cart-count').textContent = cartCount;
+        }
+
+        function openCart() {
+            alert(`You have ${cartCount} items in your cart. Total: $${selectedPrice}`);
+        }
+
+        function openModal() {
             document.getElementById('payment-modal').style.display = 'flex';
         }
 
         function closeModal() {
             document.getElementById('payment-modal').style.display = 'none';
+            document.getElementById('card-form').style.display = 'none';
+            document.getElementById('paypal-form').style.display = 'none';
+            document.getElementById('cash-form').style.display = 'none';
+        }
+
+        function showCardForm() {
+            document.getElementById('card-form').style.display = 'block';
+            document.getElementById('paypal-form').style.display = 'none';
+            document.getElementById('cash-form').style.display = 'none';
+        }
+
+        function hideCardForm() {
+            document.getElementById('card-form').style.display = 'none';
+            document.getElementById('paypal-form').style.display = 'none';
+            document.getElementById('cash-form').style.display = 'none';
         }
 
         function confirmPayment() {
