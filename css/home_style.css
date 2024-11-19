@@ -376,7 +376,7 @@
   
   .btn-secondary::before { background-color: var(--off-white); }
   
-  .btn-secondary .text-2 { color: var(--white); }
+  .btn-secondary .text-2 { color: var(--black); }
 
   
 }
