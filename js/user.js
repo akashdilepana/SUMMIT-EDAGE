@@ -6,11 +6,7 @@ function clearForm() {
     $('#username').val('');
     $('#userimagePreview').hide().attr('src', '');
 
-    if (typeof user_type !== 'undefined' && typeof user_type.clear === 'function') {
-        user_type.clear();
-    } else {
-        console.warn('user_type is not defined or clear method is unavailable.');
-    }
+   
 
     $('#saveBtn')
         .removeData('id')
@@ -33,7 +29,6 @@ $('.cls-card').click(function () {
     $('#name').val('');
     $('#username').val('');
     $('#userimagePreview').hide().attr('src', '');
-    user_type.clear();
     $('#saveBtn')
         .removeData('id')
         .removeData('mode')
