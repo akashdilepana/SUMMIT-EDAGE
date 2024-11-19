@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart</title>
+    <title>Restaurant Menu</title>
     <style>
         /* General Styles */
         body {
@@ -31,7 +31,7 @@
             top: 0;
             z-index: 1000;
             display: flex;
-            justify-content: center;
+            justify-content: center;  /* Centers the navigation links */
             align-items: center;
         }
 
@@ -40,7 +40,7 @@
             padding: 0;
             margin: 0;
             display: flex;
-            justify-content: center;
+            justify-content: center; /* Centers the list items */
             gap: 30px;
         }
 
@@ -65,7 +65,7 @@
             font-size: 1.5em;
             cursor: pointer;
             position: relative;
-            margin-left: 30px;
+            margin-left: 30px;  /* Adds space between the menu items and cart */
         }
 
         .cart span {
@@ -185,14 +185,6 @@
             margin-right: 10px;
         }
 
-        .payment-form input {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
         .payment-form button {
             width: 100%;
             padding: 10px;
@@ -228,14 +220,15 @@
         <ul>
             <li><a href="#home">Home</a></li>
             <li><a href="#menu">Menu</a></li>
-            <li><a href="#cart">Cart</li>
             <li><a href="#about-us">About Us</a></li>
             <li><a href="#contact-us">Contact Us</a></li>
         </ul>
-       
+        <div class="cart" onclick="openCart()">
+            🛒 Cart <span id="cart-count">0</span>
+        </div>
     </nav>
 
-    <h1 id="menu">Restaurant Menu</h1>
+    <h1 id="menu">Cart</h1>
     <div class="menu-container">
         <div class="menu-item">
             <img src="./assets/images/Pizza.webp" alt="Pizza" height="200" width="100">
@@ -263,28 +256,11 @@
             <button class="close-btn" onclick="closeModal()">&times;</button>
             <h2>Select Payment Method</h2>
             <div class="payment-methods">
-                <label><input type="radio" name="payment" value="card" onclick="showCardForm()"> Credit/Debit Card</label><br>
-                <label><input type="radio" name="payment" value="paypal" onclick="hideCardForm()"> PayPal</label><br>
-                <label><input type="radio" name="payment" value="cash" onclick="hideCardForm()"> Cash on Delivery</label>
+                <label><input type="radio" name="payment" value="card"> Credit/Debit Card</label><br>
+                <label><input type="radio" name="payment" value="paypal"> PayPal</label><br>
+                <label><input type="radio" name="payment" value="cash"> Cash on Delivery</label>
             </div>
-
-            <!-- Card Payment Form -->
-            <div id="card-form" class="payment-form" style="display:none;">
-                <h3>Enter Card Details</h3>
-                <input type="text" placeholder="Card Number" id="card-number" required>
-                <input type="text" placeholder="Expiry Date" id="expiry-date" required>
-                <input type="text" placeholder="CVV" id="cvv" required>
-                <button onclick="confirmPayment()">Confirm Payment</button>
-            </div>
-
-            <!-- Confirmation for PayPal and Cash -->
-            <div id="paypal-form" class="payment-form" style="display:none;">
-                <button onclick="confirmPayment()">Confirm Payment with PayPal</button>
-            </div>
-
-            <div id="cash-form" class="payment-form" style="display:none;">
-                <button onclick="confirmPayment()">Confirm Cash on Delivery</button>
-            </div>
+            <button onclick="confirmPayment()">Confirm Payment</button>
         </div>
     </div>
 
@@ -302,27 +278,13 @@
             alert(`You have ${cartCount} items in your cart. Total: $${selectedPrice}`);
         }
 
-        function openModal() {
+        function openModal(price) {
+            selectedPrice = price;
             document.getElementById('payment-modal').style.display = 'flex';
         }
 
         function closeModal() {
             document.getElementById('payment-modal').style.display = 'none';
-            document.getElementById('card-form').style.display = 'none';
-            document.getElementById('paypal-form').style.display = 'none';
-            document.getElementById('cash-form').style.display = 'none';
-        }
-
-        function showCardForm() {
-            document.getElementById('card-form').style.display = 'block';
-            document.getElementById('paypal-form').style.display = 'none';
-            document.getElementById('cash-form').style.display = 'none';
-        }
-
-        function hideCardForm() {
-            document.getElementById('card-form').style.display = 'none';
-            document.getElementById('paypal-form').style.display = 'none';
-            document.getElementById('cash-form').style.display = 'none';
         }
 
         function confirmPayment() {
