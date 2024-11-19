@@ -1,362 +1,394 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restaurant Menu</title>
-    <style>
-        /* General Styles */
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #111, #333);
-            color: #fff;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart</title>
+  <style>
+    /* CSS */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #333;
+      color: white;
+    }
 
-        h1 {
-            font-size: 3em;
-            margin-top: 20px;
-            letter-spacing: 2px;
-            color: #FFD700;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-        }
+    .header {
+      background-color: #ffd700; /* Gold color */
+      padding: 15px;
+      color: #333;
+    }
 
-        nav {
-            background: #222;
-            padding: 15px 0;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            display: flex;
-            justify-content: center;  /* Centers the navigation links */
-            align-items: center;
-        }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            justify-content: center; /* Centers the list items */
-            gap: 30px;
-        }
+    .navbar img {
+      width: 100px; /* Adjust the logo size */
+      height: auto;
+    }
 
-        nav ul li {
-            display: inline;
-        }
+    .navbar nav {
+      display: flex;
+    }
 
-        nav ul li a {
-            color: #FFD700;
-            text-decoration: none;
-            font-size: 1.2em;
-            font-weight: bold;
-            transition: color 0.3s;
-        }
+    .navbar nav a {
+      color: #333;
+      text-decoration: none;
+      margin: 0 15px;
+    }
 
-        nav ul li a:hover {
-            color: #fff;
-        }
+    .shopping-cart, .payment-form, .info-form {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #444; /* Dark background for sections */
+    }
 
-        .cart {
-            color: #FFD700;
-            font-size: 1.5em;
-            cursor: pointer;
-            position: relative;
-            margin-left: 30px;  /* Adds space between the menu items and cart */
-        }
+    .cart-steps {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 20px;
+    }
 
-        .cart span {
-            background: #FFD700;
-            color: #111;
-            font-size: 0.8em;
-            padding: 2px 6px;
-            border-radius: 50%;
-            position: absolute;
-            top: -10px;
-            right: -10px;
-        }
+    .step {
+      padding: 10px;
+      border: 1px solid #ffd700;
+      border-radius: 5px;
+    }
 
-        /* Menu Container */
-        .menu-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            padding: 40px;
-        }
+    .step.active {
+      background-color: #ffd700;
+      color: black;
+    }
 
-        .menu-item {
-            background: #222;
-            color: #FFD700;
-            padding: 20px;
-            width: 250px;
-            border-radius: 15px;
-            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s, box-shadow 0.3s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-        }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #ddd;
+    }
 
-        .menu-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
-        }
+    .item-info {
+      display: flex;
+      align-items: center;
+    }
 
-        .menu-item img {
-            border-radius: 10px;
-        }
+    .item-info img {
+      width: 60px;
+      height: 60px;
+      margin-right: 10px;
+    }
 
-        .menu-item h2 {
-            margin: 10px 0;
-            color: #FFD700;
-        }
+    .quantity {
+      display: flex;
+      align-items: center;
+    }
 
-        .menu-item p {
-            font-size: 1.1em;
-            margin-bottom: 15px;
-            color: #ddd;
-        }
+    .quantity button {
+      padding: 5px;
+      margin: 0 5px;
+      background-color: #ffd700;
+      border: none;
+      cursor: pointer;
+      color: black;
+    }
 
-        .checkout-btn {
-            padding: 10px 20px;
-            background: linear-gradient(90deg, #FFD700, #DAA520);
-            color: #111;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: bold;
-            box-shadow: 0px 5px 15px rgba(255, 215, 0, 0.4);
-            transition: transform 0.3s, background 0.3s;
-        }
+    .cart-summary {
+      text-align: right;
+    }
 
-        .checkout-btn:hover {
-            background: linear-gradient(90deg, #DAA520, #FFD700);
-            transform: scale(1.05);
-        }
+    button {
+      padding: 10px 20px;
+      margin: 10px 5px;
+      border: none;
+      background-color: #ffd700;
+      color: black;
+      cursor: pointer;
+    }
 
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-        }
+    button:hover {
+      opacity: 0.8;
+    }
 
-        .modal-content {
-            background: #111;
-            color: #FFD700;
-            padding: 30px;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 400px;
-            position: relative;
-            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
-        }
+    .payment-methods label {
+      display: block;
+      margin-bottom: 10px;
+    }
 
-        .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            background: none;
-            border: none;
-            font-size: 1.5em;
-            cursor: pointer;
-            color: #FFD700;
-        }
+    .form-group {
+      margin-bottom: 15px;
+    }
 
-        .payment-methods {
-            text-align: left;
-            margin-bottom: 20px;
-        }
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #555;
+      color: white;
+    }
 
-        .payment-methods input {
-            margin-right: 10px;
-        }
+    .payment-form {
+      display: none;
+    }
 
-        .payment-form button {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            background: #FFD700;
-            color: #111;
-            border: none;
-            border-radius: 5px;
-            font-size: 1em;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
+    .payment-form.active {
+      display: block;
+    }
 
-        .payment-form button:hover {
-            background: #DAA520;
-        }
+    .back-to-cart {
+      background-color: #333;
+      border: 1px solid #ffd700;
+      color: #ffd700;
+      padding: 10px;
+      cursor: pointer;
+    }
 
-        /* Responsive Design */
-        @media (max-width: 600px) {
-            .menu-container {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .menu-item {
-                width: 80%;
-            }
-        }
-    </style>
+    .back-to-cart:hover {
+      background-color: #ffd700;
+      color: #333;
+    }
+  </style>
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#menu">Menu</a></li>
-            <li><a href="#about-us">About Us</a></li>
-            <li><a href="#contact-us">Contact Us</a></li>
-        </ul>
-        <div class="cart" onclick="openCart()">
-            🛒 Cart <span id="cart-count">0</span>
-        </div>
-    </nav>
-
-    <h1 id="menu">Cart</h1>
-    <div class="menu-container">
-        <div class="menu-item">
-            <img src="./assets/images/Pizza.webp" alt="Pizza" height="100" width="100">
-            <h2>Pizza</h2>
-            <p>Price: $10</p>
-        </div>
-        <div class="menu-item">
-            <img src="./assets/images/Burger.png" alt="Burger" height="100" width="100">
-            <h2>Burger</h2>
-            <p>Price: $5</p>
-         </div>   
-        <div class="menu-item">
-            <img src="./assets/images/Pasta.png" alt="Pasta" height="100" width="100">
-            <h2>Pasta</h2>
-            <p>Price: $8</p>
-        </div>
-    
+  <header class="header">
+    <div class="navbar">
+      <img src="logo.png" alt="Restaurant Logo">
+      <nav>
+        <a href="#">Home</a>
+        <a href="#">About Us</a>
+        <a href="#">Our Menu</a>
+        <a href="#">Contact Us</a>
+      </nav>
     </div>
-    <div id="cart-section">
-        <button id="checkout-btn" onclick="openCheckout()">Checkout</button>
+  </header>
+
+  <main class="shopping-cart">
+    <h2>Shopping Cart</h2>
+    <div class="cart-steps">
+      <div class="step active" id="cart-step">1. Shopping Cart</div>
+      <div class="step" id="info-step">2. Shopping Info</div>
+      <div class="step" id="payment-step">3. Payment Method</div>
     </div>
-<!-- Payment Modal -->
-<div id="payment-modal" class="modal">
-    <div class="modal-content">
-        <button class="close-btn" onclick="closeModal()">&times;</button>
-        <h2>Select Payment Method</h2>
-        <div class="payment-methods">
-            <label>
-                <input type="radio" name="payment" value="card" onclick="showPaymentForm('card')"> Credit/Debit Card
-            </label><br>
-            <label>
-                <input type="radio" name="payment" value="paypal" onclick="showPaymentForm('paypal')"> PayPal
-            </label><br>
-            <label>
-                <input type="radio" name="payment" value="cash" onclick="showPaymentForm('cash')"> Cash on Delivery
-            </label>
-        </div>
 
-        <!-- Credit/Debit Card Form -->
-        <div id="card-form" class="payment-form">
-            <h3>Card Details</h3>
-            <input type="text" id="card-number" placeholder="Card Number" maxlength="19" oninput="formatCardNumber(this)">
-            <input type="text" id="card-name" placeholder="Cardholder Name">
-            <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5" oninput="formatExpiry(this)">
-            <input type="text" id="card-cvv" placeholder="CVV" maxlength="3">
-            <button onclick="processPayment('card')">Pay Now</button>
+    <div class="cart-table">
+      <div class="cart-item">
+        <div class="item-info">
+            <img src="/assets/images/Pasta.png" alt="Pasta">
+          <div>
+            <p class="item-name">Pasta</p>
+            <p class="item-desc">Cursus / Dictum / Risus</p>
+          </div>
         </div>
+        <p class="item-price">$23.00</p>
+        <div class="quantity">
+          <button class="decrease">-</button>
+          <input type="number" value="1" class="qty-input">
+          <button class="increase">+</button>
+        </div>
+        <p class="item-total">$23.00</p>
+        <button class="remove-btn">x</button>
+      </div>
 
-        <!-- PayPal Form -->
-        <div id="paypal-form" class="payment-form">
-            <h3>Pay with PayPal</h3>
-            <button onclick="processPayment('paypal')">Proceed to PayPal</button>
+      <div class="cart-item">
+        <div class="item-info">
+            <img src="/assets/images/Pizza.webp" alt="Pizza">
+          <div>
+            <p class="item-name">Pizza</p>
+            <p class="item-desc">Cursus / Dictum / Risus</p>
+          </div>
         </div>
-
-        <!-- Cash on Delivery Form -->
-        <div id="cash-form" class="payment-form">
-            <h3>Cash on Delivery</h3>
-            <p>Please have the exact amount ready upon delivery.</p>
-            <button onclick="processPayment('cash')">Confirm Order</button>
+        <p class="item-price">$23.50</p>
+        <div class="quantity">
+          <button class="decrease">-</button>
+          <input type="number" value="1" class="qty-input">
+          <button class="increase">+</button>
         </div>
+        <p class="item-total">$23.50</p>
+        <button class="remove-btn">x</button>
+      </div>
     </div>
-</div>
 
-<script>
-    function openCheckout() {
-        openModal();
-    }
+    <div class="cart-summary">
+      <p>Subtotal: <span id="subtotal">$46.50</span></p>
+      <div style="display: flex; justify-content: space-between;">
+        <button id="continue-shopping">Continue Shopping</button>
+        <button id="next-step">Next Step</button>
+      </div>
+    </div>
+  </main>
 
-    // Modal Functions
-    function openModal() {
-        document.getElementById('payment-modal').style.display = 'flex';
-    }
+  <div id="info-section" class="info-form payment-form">
+    <h2>Enter your Info</h2>
+    <form>
+      <label for="name">Full Name</label>
+      <input type="text" id="name" placeholder="Enter full name" required>
 
-    function closeModal() {
-        document.getElementById('payment-modal').style.display = 'none';
-        resetPaymentForms();
-    }
+      <label for="address">Address</label>
+      <input type="text" id="address" placeholder="Enter address" required>
 
+      <label for="phone">Phone Number</label>
+      <input type="text" id="phone" placeholder="Enter phone number" required>
+    </form>
+    <div style="display: flex; justify-content: space-between;">
+      <button class="back-to-cart" id="back-to-cart-info">Back to Cart</button>
+      <button id="next-payment">Next</button>
+    </div>
+  </div>
+
+  <div id="payment-section" class="payment-form">
+    <h2>Select Payment Method</h2>
+    <div class="payment-methods">
+      <label>
+        <input type="radio" name="payment" value="card" onclick="showPaymentForm('card')"> Credit/Debit Card
+      </label>
+      <label>
+        <input type="radio" name="payment" value="paypal" onclick="showPaymentForm('paypal')"> PayPal
+      </label>
+      <label>
+        <input type="radio" name="payment" value="cash" onclick="showPaymentForm('cash')"> Cash on Delivery
+      </label>
+    </div>
+
+    <!-- Credit/Debit Card Form -->
+    <div id="card-form" class="payment-form">
+      <h3>Card Details</h3>
+      <div class="form-group">
+        <input type="text" id="card-number" placeholder="Card Number" maxlength="19" oninput="formatCardNumber(this)">
+      </div>
+      <div class="form-group">
+        <input type="text" id="card-name" placeholder="Cardholder Name">
+      </div>
+      <div class="form-group">
+        <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5" oninput="formatExpiry(this)">
+      </div>
+      <div class="form-group">
+        <input type="text" id="card-cvv" placeholder="CVV" maxlength="3">
+      </div>
+    </div>
+
+    <!-- PayPal Form -->
+    <div id="paypal-form" class="payment-form">
+      <h3>PayPal</h3>
+      <p>Proceed to PayPal to complete your payment.</p>
+    </div>
+
+    <!-- Cash Form -->
+    <div id="cash-form" class="payment-form">
+      <h3>Cash on Delivery</h3>
+      <p>Please have the exact amount ready upon delivery.</p>
+    </div>
+
+    <div style="display: flex; justify-content: space-between;">
+      <button class="back-to-cart" id="back-to-cart-payment">Back to Cart</button>
+      <button onclick="processPayment('card')">Pay Now</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const updateTotal = () => {
+        const items = document.querySelectorAll(".cart-item");
+        let subtotal = 0;
+
+        items.forEach(item => {
+          const price = parseFloat(item.querySelector(".item-price").textContent.replace('$', ''));
+          const qty = parseInt(item.querySelector(".qty-input").value);
+          const total = price * qty;
+          item.querySelector(".item-total").textContent = `$${total.toFixed(2)}`;
+          subtotal += total;
+        });
+
+        document.getElementById("subtotal").textContent = `$${subtotal.toFixed(2)}`;
+      };
+
+      document.querySelectorAll(".increase").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          const input = e.target.parentElement.querySelector(".qty-input");
+          input.value = parseInt(input.value) + 1;
+          updateTotal();
+        });
+      });
+
+      document.querySelectorAll(".decrease").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          const input = e.target.parentElement.querySelector(".qty-input");
+          if (parseInt(input.value) > 1) {
+            input.value = parseInt(input.value) - 1;
+            updateTotal();
+          }
+        });
+      });
+
+      document.querySelectorAll(".remove-btn").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          e.target.closest(".cart-item").remove();
+          updateTotal();
+        });
+      });
+
+      document.getElementById("next-step").addEventListener("click", () => {
+        document.getElementById("cart-step").classList.remove("active");
+        document.getElementById("info-step").classList.add("active");
+        document.querySelector(".shopping-cart").style.display = "none";
+        document.getElementById("info-section").style.display = "block";
+      });
+
+      document.getElementById("back-to-cart-info").addEventListener("click", () => {
+        document.querySelector(".shopping-cart").style.display = "block";
+        document.getElementById("info-section").style.display = "none";
+        document.getElementById("info-step").classList.remove("active");
+        document.getElementById("cart-step").classList.add("active");
+      });
+
+      document.getElementById("next-payment").addEventListener("click", () => {
+        document.getElementById("info-step").classList.remove("active");
+        document.getElementById("payment-step").classList.add("active");
+        document.getElementById("info-section").style.display = "none";
+        document.getElementById("payment-section").style.display = "block";
+      });
+
+      document.getElementById("back-to-cart-payment").addEventListener("click", () => {
+        document.querySelector(".shopping-cart").style.display = "block";
+        document.getElementById("payment-section").style.display = "none";
+        document.getElementById("payment-step").classList.remove("active");
+        document.getElementById("cart-step").classList.add("active");
+      });
+    });
+
+    // Show payment form based on selected method
     function showPaymentForm(method) {
-        document.getElementById('card-form').style.display = 'none';
-        document.getElementById('paypal-form').style.display = 'none';
-        document.getElementById('cash-form').style.display = 'none';
+      document.getElementById('card-form').style.display = 'none';
+      document.getElementById('paypal-form').style.display = 'none';
+      document.getElementById('cash-form').style.display = 'none';
 
-        if (method === 'card') {
-            document.getElementById('card-form').style.display = 'block';
-        } else if (method === 'paypal') {
-            document.getElementById('paypal-form').style.display = 'block';
-        } else if (method === 'cash') {
-            document.getElementById('cash-form').style.display = 'block';
-        }
+      if (method === 'card') {
+        document.getElementById('card-form').style.display = 'block';
+      } else if (method === 'paypal') {
+        document.getElementById('paypal-form').style.display = 'block';
+      } else if (method === 'cash') {
+        document.getElementById('cash-form').style.display = 'block';
+      }
     }
 
-    function resetPaymentForms() {
-        const forms = document.getElementsByClassName('payment-form');
-        for (let form of forms) {
-            form.style.display = 'none';
-        }
-        const paymentMethods = document.getElementsByName('payment');
-        paymentMethods.forEach(radio => radio.checked = false);
-    }
-
+    // Payment method processing
     function processPayment(method) {
-        if (method === 'card') {
-            alert("Payment successful via Credit/Debit Card!");
-        } else if (method === 'paypal') {
-            alert("Redirecting to PayPal...");
-        } else if (method === 'cash') {
-            alert("Order confirmed! You will pay in cash upon delivery.");
-        }
-        closeModal();
+      if (method === 'card') {
+        alert("Payment successful via Credit/Debit Card!");
+      } else if (method === 'paypal') {
+        alert("Redirecting to PayPal...");
+      } else if (method === 'cash') {
+        alert("Order confirmed! You will pay in cash upon delivery.");
+      }
     }
-
-    function formatCardNumber(input) {
-        let value = input.value.replace(/\D/g, '').substring(0, 16);
-        input.value = value.replace(/(.{4})/g, '$1 ').trim();
-    }
-
-    function formatExpiry(input) {
-        let value = input.value.replace(/\D/g, '').substring(0, 4);
-        if (value.length > 2) {
-            input.value = value.substring(0, 2) + '/' + value.substring(2, 4);
-        } else {
-            input.value = value;
-        }
-    }
-</script>
-
+  </script>
 </body>
 </html>
-    
-
