@@ -231,66 +231,132 @@
     <h1 id="menu">Cart</h1>
     <div class="menu-container">
         <div class="menu-item">
-            <img src="./assets/images/Pizza.webp" alt="Pizza" height="200" width="100">
+            <img src="./assets/images/Pizza.webp" alt="Pizza" height="100" width="100">
             <h2>Pizza</h2>
             <p>Price: $10</p>
-            <button class="checkout-btn" onclick="addToCart(10)">Add to Cart</button>
         </div>
         <div class="menu-item">
-            <img src="./assets/images/Burger.png" alt="Burger" height="200" width="100">
+            <img src="./assets/images/Burger.png" alt="Burger" height="100" width="100">
             <h2>Burger</h2>
             <p>Price: $5</p>
-            <button class="checkout-btn" onclick="addToCart(5)">Add to Cart</button>
-        </div>
+         </div>   
         <div class="menu-item">
-            <img src="./assets/images/Pasta.png" alt="Pasta" height="200" width="100">
+            <img src="./assets/images/Pasta.png" alt="Pasta" height="100" width="100">
             <h2>Pasta</h2>
             <p>Price: $8</p>
-            <button class="checkout-btn" onclick="addToCart(8)">Add to Cart</button>
+        </div>
+    
+    </div>
+    <div id="cart-section">
+        <button id="checkout-btn" onclick="openCheckout()">Checkout</button>
+    </div>
+<!-- Payment Modal -->
+<div id="payment-modal" class="modal">
+    <div class="modal-content">
+        <button class="close-btn" onclick="closeModal()">&times;</button>
+        <h2>Select Payment Method</h2>
+        <div class="payment-methods">
+            <label>
+                <input type="radio" name="payment" value="card" onclick="showPaymentForm('card')"> Credit/Debit Card
+            </label><br>
+            <label>
+                <input type="radio" name="payment" value="paypal" onclick="showPaymentForm('paypal')"> PayPal
+            </label><br>
+            <label>
+                <input type="radio" name="payment" value="cash" onclick="showPaymentForm('cash')"> Cash on Delivery
+            </label>
+        </div>
+
+        <!-- Credit/Debit Card Form -->
+        <div id="card-form" class="payment-form">
+            <h3>Card Details</h3>
+            <input type="text" id="card-number" placeholder="Card Number" maxlength="19" oninput="formatCardNumber(this)">
+            <input type="text" id="card-name" placeholder="Cardholder Name">
+            <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5" oninput="formatExpiry(this)">
+            <input type="text" id="card-cvv" placeholder="CVV" maxlength="3">
+            <button onclick="processPayment('card')">Pay Now</button>
+        </div>
+
+        <!-- PayPal Form -->
+        <div id="paypal-form" class="payment-form">
+            <h3>Pay with PayPal</h3>
+            <button onclick="processPayment('paypal')">Proceed to PayPal</button>
+        </div>
+
+        <!-- Cash on Delivery Form -->
+        <div id="cash-form" class="payment-form">
+            <h3>Cash on Delivery</h3>
+            <p>Please have the exact amount ready upon delivery.</p>
+            <button onclick="processPayment('cash')">Confirm Order</button>
         </div>
     </div>
+</div>
 
-    <!-- Payment Modal -->
-    <div id="payment-modal" class="modal">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModal()">&times;</button>
-            <h2>Select Payment Method</h2>
-            <div class="payment-methods">
-                <label><input type="radio" name="payment" value="card"> Credit/Debit Card</label><br>
-                <label><input type="radio" name="payment" value="paypal"> PayPal</label><br>
-                <label><input type="radio" name="payment" value="cash"> Cash on Delivery</label>
-            </div>
-            <button onclick="confirmPayment()">Confirm Payment</button>
-        </div>
-    </div>
+<script>
+    function openCheckout() {
+        openModal();
+    }
 
-    <script>
-        let selectedPrice = 0;
-        let cartCount = 0;
+    // Modal Functions
+    function openModal() {
+        document.getElementById('payment-modal').style.display = 'flex';
+    }
 
-        function addToCart(price) {
-            selectedPrice += price;
-            cartCount++;
-            document.getElementById('cart-count').textContent = cartCount;
+    function closeModal() {
+        document.getElementById('payment-modal').style.display = 'none';
+        resetPaymentForms();
+    }
+
+    function showPaymentForm(method) {
+        document.getElementById('card-form').style.display = 'none';
+        document.getElementById('paypal-form').style.display = 'none';
+        document.getElementById('cash-form').style.display = 'none';
+
+        if (method === 'card') {
+            document.getElementById('card-form').style.display = 'block';
+        } else if (method === 'paypal') {
+            document.getElementById('paypal-form').style.display = 'block';
+        } else if (method === 'cash') {
+            document.getElementById('cash-form').style.display = 'block';
         }
+    }
 
-        function openCart() {
-            alert(`You have ${cartCount} items in your cart. Total: $${selectedPrice}`);
+    function resetPaymentForms() {
+        const forms = document.getElementsByClassName('payment-form');
+        for (let form of forms) {
+            form.style.display = 'none';
         }
+        const paymentMethods = document.getElementsByName('payment');
+        paymentMethods.forEach(radio => radio.checked = false);
+    }
 
-        function openModal(price) {
-            selectedPrice = price;
-            document.getElementById('payment-modal').style.display = 'flex';
+    function processPayment(method) {
+        if (method === 'card') {
+            alert("Payment successful via Credit/Debit Card!");
+        } else if (method === 'paypal') {
+            alert("Redirecting to PayPal...");
+        } else if (method === 'cash') {
+            alert("Order confirmed! You will pay in cash upon delivery.");
         }
+        closeModal();
+    }
 
-        function closeModal() {
-            document.getElementById('payment-modal').style.display = 'none';
-        }
+    function formatCardNumber(input) {
+        let value = input.value.replace(/\D/g, '').substring(0, 16);
+        input.value = value.replace(/(.{4})/g, '$1 ').trim();
+    }
 
-        function confirmPayment() {
-            alert(`Payment of $${selectedPrice} successful!`);
-            closeModal();
+    function formatExpiry(input) {
+        let value = input.value.replace(/\D/g, '').substring(0, 4);
+        if (value.length > 2) {
+            input.value = value.substring(0, 2) + '/' + value.substring(2, 4);
+        } else {
+            input.value = value;
         }
-    </script>
+    }
+</script>
+
 </body>
 </html>
+    
+
