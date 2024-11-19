@@ -374,9 +374,12 @@
     color: var(--black);
   }
   
-  .btn-secondary::before { background-color: var(--smoky-black-1); }
+  .btn-secondary::before { background-color: var(--off-white); }
   
   .btn-secondary .text-2 { color: var(--white); }
+
+  
+}
   
   .has-before,
   .has-after {
