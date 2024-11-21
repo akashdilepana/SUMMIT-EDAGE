@@ -111,6 +111,7 @@
     </div>
   </div>
 
+  <script src="./js/js/sweetalert2.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const cartData = JSON.parse(localStorage.getItem('cart')) || [];
@@ -232,9 +233,22 @@
     }
 
     function processPayment() {
-      alert('Payment successful!');
-      // After payment success, you can redirect or clear cart
+      // Show the success alert
+      Swal.fire({
+        title: "Payment successful!",
+        text: "We will inform you....",
+        icon: "success"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Clear the cart stored in localStorage
+          localStorage.removeItem('cart'); // This removes the cart from localStorage
+
+          // Redirect to the cart page
+          window.location.href = 'cart.html'; // Redirect to the cart page
+        }
+      });
     }
+
 
     function processPayment() {
       const name = document.getElementById('name').value;
@@ -272,11 +286,23 @@
         .then((data) => {
           console.log('Server response:', data); // Debugging log
           if (data.success) {
-            alert('Payment successful!');
+            Swal.fire({
+              title: "Payment successful!",
+              text: "We will inform you....",
+              icon: "success"
+            }).then((result) => {
+              if (result.isConfirmed) {
+                // Clear the cart stored in localStorage
+                localStorage.removeItem('cart'); // This removes the cart from localStorage
+
+                // Redirect to the cart page
+                window.location.href = 'cart.html'; // Redirect to the cart page
+              }
+            });
             localStorage.removeItem('cart');
+            window.location.href = 'cart.html'; 
           } else {
-            alert(`Error: ${data.error || 'Something went wrong!'}`);
-          }
+            Swal.fire('Error!', result.value.msg, 'error');          }
         })
         .catch((error) => {
           console.error('Error during payment process:', error);
