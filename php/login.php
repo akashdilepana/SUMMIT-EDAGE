@@ -7,9 +7,13 @@ if (session_status() == PHP_SESSION_NONE) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'];
+    $password = $_POST['password'];
 
-    $stmt = $conn->prepare("SELECT * FROM users WHERE username = :name AND status = 'active'");
+
+    $stmt = $conn->prepare("SELECT * FROM users WHERE username = :name AND password = :password AND status = 'active'");
     $stmt->bindParam(':name', $name);
+    $stmt->bindParam(':password', $password);
+
     $stmt->execute();
 
     if ($stmt->rowCount() > 0) {

@@ -11,12 +11,6 @@
 <body>
   <div class="wrapper">
 
-
-    <!-- <div class="tab">
-      <button class="tablinks active" onclick="openCity(event, 'London')">Login</button>
-      <span class="button-spacer"></span>
-      <button class="tablinks" onclick="openCity(event, 'Paris')">Sign Up</button>
-    </div> -->
     <form action="php/login.php" method="post" id="loginForm">
       <h2>Login here</h2>
       <div class="input-field">
@@ -43,62 +37,9 @@
 
       <div class="input-submit-signin">
         <button class="submit-btn"  id="submit">Log In</button>
-        <!-- <label for="submit">sign in</label> -->
       </div>
-
-
-
-
     </form>
 
-    <!-- s -->
-
-
-
-
-
-    <!-- <div id="Paris" class="tabcontent" style="display: none;">
-      <form action="php/register.php" method="post" id="registerForm">
-        <h2>Register here</h2>
-        <div class="input-field">
-          <span class="icon">
-            <ion-icon name="person"></ion-icon>
-          </span>
-          <input type="text" name="username" required>
-          <label>Enter your Name</label>
-        </div>
-        <div class="input-field">
-          <span class="icon">
-            <ion-icon name="mail-outline"></ion-icon>
-          </span>
-          <input type="email" name="email" required>
-          <label>Enter your Email</label>
-        </div>
-        <div class="input-field">
-          <span class="icon">
-            <ion-icon name="lock-closed-outline"></ion-icon>
-          </span>
-          <input type="password" name="password" required>
-          <label>Enter your password</label>
-        </div>
-        <div class="input-field">
-          <span class="icon">
-            <ion-icon name="lock-closed-outline"></ion-icon>
-          </span>
-          <input type="password" name="confirm password" required>
-          <label>confirm your password</label>
-        </div>
-        <div class="input-submit-register">
-          <button class="submit-btn" style=" width:90%; height: 50px;
-          background:rgb(110, 83, 13);
-          border:none;
-          border-radius: 30px;
-          cursor: pointer;
-          transition: .3s;" id="submit"></button>
-          <label for="submit">Register</label>
-        </div>
-      </form>
-    </div> -->
   </div>
 
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -123,16 +64,15 @@
           .then(response => response.text())
           .then(data => {
             if (data.trim() === 'ok') {
-              window.location.href = 'home.html';  // Redirect to home if login is successful
+              window.location.href = 'home.html'; 
             } else if (data.trim() === 'inactive_or_no_user') {
-              // Show SweetAlert for deactivated or non-existing user
+
               Swal.fire({
                 icon: 'error',
-                title: 'User Deactivated or Not Found',
-                text: 'The account is either deactivated or does not exist.',
+                title: 'User Deactivated or Incorrect Password',
+                text: 'Please check your username and password OR contect IT department',
               });
             } else if (data.trim() === 'no') {
-              // Show SweetAlert for wrong password
               Swal.fire({
                 icon: 'error',
                 title: 'Error',
@@ -149,7 +89,6 @@
             });
           });
       } else {
-        // Show SweetAlert if fields are empty
         Swal.fire({
           icon: 'warning',
           title: 'Missing Fields',
@@ -158,27 +97,7 @@
       }
     });
 
-    function openCity(evt, cityName) {
-      var i, tabcontent, tablinks;
-
-
-      tabcontent = document.getElementsByClassName("tabcontent");
-      for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-      }
-
-      // Remove "active" class from all tab links
-      tablinks = document.getElementsByClassName("tablinks");
-      for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-      }
-
-      // Show the selected tab and add "active" class
-      document.getElementById(cityName).style.display = "block";
-      evt.currentTarget.className += " active";
-    }
-
-
+  
   </script>
 
 </body>
