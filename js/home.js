@@ -215,14 +215,14 @@ document.getElementById('reservation').addEventListener('submit', function (even
   const person = document.querySelector('input[name="person"]').value;
   const message = document.querySelector('textarea[name="message"]').value;
 
-  if (name && phone && date && time && message) {
+  if (name && phone && date && time && person && message) {
     fetch('php/reservation.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       body: `name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}&date=${encodeURIComponent(date)}
-    &time=${encodeURIComponent(time)}&message=${encodeURIComponent(message)}`
+    &time=${encodeURIComponent(time)}&person=${encodeURIComponent(person)}&message=${encodeURIComponent(message)}`
     })
       .then(response => response.text())
       .then(data => {
