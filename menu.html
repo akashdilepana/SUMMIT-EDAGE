@@ -246,7 +246,7 @@
             <a href="#" class="logo">
                 <img src="./assets/images/logobgr.png" alt="Tasty Treats Hub" width="150" height="100">
             </a>
-    
+
             <nav class="navbar">
                 <ul class="navbar-list">
                     <li class="navbar-item">
@@ -274,7 +274,7 @@
                             <span class="span">Admin Dashboard</span>
                         </a>
                     </li>
-                    <li class="navbar-item" id="admin_dash" >
+                    <li class="navbar-item" id="admin_dash">
                         <a href="cart.html" class="navbar-link">
                             <span class="span">cart</span>
                         </a>
@@ -310,31 +310,32 @@
 
     </div>
 
+    <script src="js/js/sweetalert2.js"></script>
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        fetch('php/getmenu.php')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to fetch menu data');
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.error) {
-                    console.error(data.error);
-                    return;
-                }
-                renderMenu(data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    });
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('php/getmenu.php')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch menu data');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.error) {
+                        console.error(data.error);
+                        return;
+                    }
+                    renderMenu(data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
 
-    function renderMenu(menuItems) {
-        const menuContainer = document.getElementById('menuContainer');
-        menuItems.forEach(item => {
-            const menuCard = `
+        function renderMenu(menuItems) {
+            const menuContainer = document.getElementById('menuContainer');
+            menuItems.forEach(item => {
+                const menuCard = `
                 <div class="menu-item">
                     <img src="${item.image}" alt="${item.name}">
                     <h3>${item.name}</h3>
@@ -345,21 +346,30 @@
                         Add to Cart
                     </button>
                 </div>`;
-            menuContainer.insertAdjacentHTML('beforeend', menuCard);
-        });
-    }
-
-    function addToCart(id, name, description, image, price) {
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        const existingItem = cart.find(item => item.id === id);
-        if (existingItem) {
-            existingItem.quantity += 1; // Increment quantity if item already in cart
-        } else {
-            cart.push({ id, name, description, image, price, quantity: 1 });
+                menuContainer.insertAdjacentHTML('beforeend', menuCard);
+            });
         }
-        localStorage.setItem('cart', JSON.stringify(cart));
-        alert(`${name} added to the cart!`);
-    }
+
+        function addToCart(id, name, description, image, price) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const existingItem = cart.find(item => item.id === id);
+
+            if (existingItem) {
+                existingItem.quantity += 1; 
+            } else {
+                cart.push({ id, name, description, image, price, quantity: 1 });
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            Swal.fire({
+                icon: 'success',
+                title: `${name} added to the cart!`,
+                text: 'You can view your cart anytime.',
+                confirmButtonText: 'Ok'
+            });
+        }
+
     </script>
 </body>
 

@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     try {
-        $stmt = $conn->prepare("INSERT INTO users (name, username, user_type, status, create_by, create_date) 
+        $stmt = $conn->prepare("INSERT INTO users (name, username, user_type, status, image,create_by, create_date) 
                                 VALUES (:name, :username, :user_type, 'active',:image, :create_by, NOW())");
 
         $stmt->bindValue(':name', $name, PDO::PARAM_STR);
