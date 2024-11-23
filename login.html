@@ -12,59 +12,52 @@
   <div class="wrapper">
 
 
-    <div class="tab">
+    <!-- <div class="tab">
       <button class="tablinks active" onclick="openCity(event, 'London')">Login</button>
       <span class="button-spacer"></span>
       <button class="tablinks" onclick="openCity(event, 'Paris')">Sign Up</button>
-    </div>
+    </div> -->
+    <form action="php/login.php" method="post" id="loginForm">
+      <h2>Login here</h2>
+      <div class="input-field">
+        <span class="icon">
+          <ion-icon name="mail-outline"></ion-icon>
+        </span>
+        <input type="text" name="username" required>
+        <label>Enter your username</label>
+      </div>
+      <div class="input-field">
+        <span class="icon">
+          <ion-icon name="lock-closed-outline"></ion-icon>
+        </span>
+        <input type="password" name="password" required>
+        <label>Enter your password</label>
+      </div>
+      <div class="forget">
+        <label for="remember">
+          <input type="checkbox" id="remember">
+          <p>Remember me</p>
+        </label>
+        <a href="#">Forgot password?</a>
+      </div>
 
-
-    <div id="London" class="tabcontent" style="display: block;">
-      <form action="php/login.php" method="post" id="loginForm">
-        <h2>Login here</h2>
-        <div class="input-field">
-          <span class="icon">
-            <ion-icon name="mail-outline"></ion-icon>
-          </span>
-          <input type="text" name="username" required>
-          <label>Enter your username</label>
-        </div>
-        <div class="input-field">
-          <span class="icon">
-            <ion-icon name="lock-closed-outline"></ion-icon>
-          </span>
-          <input type="password" name="password" required>
-          <label>Enter your password</label>
-        </div>
-        <div class="forget">
-          <label for="remember">
-            <input type="checkbox" id="remember">
-            <p>Remember me</p>
-          </label>
-          <a href="#">Forgot password?</a>
-        </div>
-
-        <div class="input-submit-signin">
-          <button class="submit-btn" style=" width:90%; height: 50px;
-          background:rgb(109, 86, 29);
-          border:none;
-          border-radius: 30px;
-          cursor: pointer;
-          transition: .3s;" id="submit"></button>
-          <label for="submit">sign in</label>
-        </div>
+      <div class="input-submit-signin">
+        <button class="submit-btn"  id="submit">Log In</button>
+        <!-- <label for="submit">sign in</label> -->
+      </div>
 
 
 
 
-      </form>
-    </div>
+    </form>
+
+    <!-- s -->
 
 
 
 
 
-    <div id="Paris" class="tabcontent" style="display: none;">
+    <!-- <div id="Paris" class="tabcontent" style="display: none;">
       <form action="php/register.php" method="post" id="registerForm">
         <h2>Register here</h2>
         <div class="input-field">
@@ -105,7 +98,7 @@
           <label for="submit">Register</label>
         </div>
       </form>
-    </div>
+    </div> -->
   </div>
 
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
