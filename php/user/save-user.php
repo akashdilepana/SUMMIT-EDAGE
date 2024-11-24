@@ -35,27 +35,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/uploads/menu_images/';
         $relativePath = '/uploads/menu_images/';
 
-        // Ensure the upload directory exists
         if (!is_dir($uploadDir)) {
-            mkdir($uploadDir, 0777, true); // Create the directory if it doesn't exist
+            mkdir($uploadDir, 0777, true);
         }
 
         $imageName = basename($_FILES['image']['name']);
         $imageExt = pathinfo($imageName, PATHINFO_EXTENSION);
 
-        // Validate file type and size
         $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
         if (!in_array(strtolower($imageExt), $allowedTypes)) {
             echo json_encode(['status' => 400, 'msg' => 'Invalid image type. Allowed types: JPEG, PNG, GIF.']);
             exit();
         }
 
-        if ($_FILES['image']['size'] > 2 * 1024 * 1024) { // 2MB size limit
+        if ($_FILES['image']['size'] > 2 * 1024 * 1024) {
             echo json_encode(['status' => 400, 'msg' => 'Image size exceeds 2MB limit.']);
             exit();
         }
 
-        // Generate unique filename and save
         $uniqueImageName = uniqid('', true) . '.' . $imageExt;
         $imagePath = $relativePath . $uniqueImageName;
 

@@ -3,7 +3,7 @@ include_once '../database.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['id']) && !empty($_POST['id'])) {
-        $id = intval($_POST['id']); // Ensure the ID is an integer
+        $id = intval($_POST['id']);
 
         try {
             $stmt = $conn->prepare("UPDATE users SET status = 'deactive' WHERE id = :id");

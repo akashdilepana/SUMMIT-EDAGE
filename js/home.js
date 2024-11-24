@@ -81,10 +81,6 @@ window.addEventListener("scroll", function () {
 
 
 
-/**
- * HERO SLIDER
- */
-
 const heroSlider = document.querySelector("[data-hero-slider]");
 const heroSliderItems = document.querySelectorAll("[data-hero-slider-item]");
 const heroSliderPrevBtn = document.querySelector("[data-prev-btn]");
@@ -123,10 +119,6 @@ const slidePrev = function () {
 
 heroSliderPrevBtn.addEventListener("click", slidePrev);
 
-/**
- * auto slide
- */
-
 let autoSlideInterval;
 
 const autoSlide = function () {
@@ -145,10 +137,6 @@ window.addEventListener("load", autoSlide);
 
 
 
-/**
- * PARALLAX EFFECT
- */
-
 const parallaxItems = document.querySelectorAll("[data-parallax-item]");
 
 let x, y;
@@ -158,7 +146,6 @@ window.addEventListener("mousemove", function (event) {
   x = (event.clientX / window.innerWidth * 10) - 5;
   y = (event.clientY / window.innerHeight * 10) - 5;
 
-  // reverse the number eg. 20 -> -20, -5 -> 5
   x = x - (x * 2);
   y = y - (y * 2);
 
@@ -175,11 +162,9 @@ fetch('php/home.php')
   .then(response => response.json())
   .then(data => {
     if (data.error) {
-      // User is not logged in, show login button
       document.getElementById('user-info').style.display = 'none';
       document.getElementById('login-prompt').style.display = 'block';
     } else {
-      // User is logged in, show username and logout button
       document.getElementById('username').textContent = "WELCOME - " + data.name;
       document.getElementById('user-info').style.display = 'block';
       document.getElementById('login-prompt').style.display = 'none';
@@ -198,7 +183,6 @@ function logout() {
     .then(response => response.text())
     .then(data => {
       if (data.trim() === "logged_out") {
-        // Redirect to home page after logout to show login button
         window.location.href = 'home.html';
       }
     })
@@ -233,7 +217,6 @@ document.getElementById('reservation').addEventListener('submit', function (even
             icon: 'success',
             confirmButtonText: 'OK'
           }).then(() => {
-            // Clear input fields after successful reservation
             document.querySelector('input[name="name"]').value = '';
             document.querySelector('input[name="phone"]').value = '';
             document.querySelector('input[name="reservation-date"]').value = '';

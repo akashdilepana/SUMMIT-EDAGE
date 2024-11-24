@@ -10,11 +10,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $message = $_POST['message']; 
 
     try {
-        // Prepare the SQL statement
         $stmt = $conn->prepare("INSERT INTO `reservation` (`name`, `phone`, `date`, `time`,`person`, `message`) 
             VALUES (:name, :phone, :date, :time, :person, :message)");
 
-        // Bind the parameters to the SQL query
         $stmt->bindParam(':name', $name);
         $stmt->bindParam(':phone', $phone);
         $stmt->bindParam(':date', $date);
@@ -22,14 +20,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindParam(':person', $person);
         $stmt->bindParam(':message', $message);
 
-        // Execute the query
         if ($stmt->execute()) {
-            echo "ok";  // Success response
+            echo "ok";  
         } else {
-            echo "error";  // Error response
+            echo "error";  
         }
     } catch (PDOException $e) {
-        // Catch and display any errors during the execution
         echo "Error: " . $e->getMessage();
     }
 }

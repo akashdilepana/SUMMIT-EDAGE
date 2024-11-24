@@ -258,7 +258,6 @@
                                             <label for="user_type">User Type<span class="text-danger">*</span></label>
                                             <select id="user_type" name="user_type" class="form-control" required
                                                 autocomplete="off">
-                                                <!-- User Type options go here -->
                                             </select>
                                         </div>
                                     </div>
@@ -268,7 +267,6 @@
                                             <label for="image">Image<span class="text-danger">*</span></label>
                                             <input id="userimage" type="file" name="image" class="form-control" required
                                                 autocomplete="off">
-                                            <!-- Image Preview -->
                                             <img id="userimagePreview" src="" alt="Image Preview"
                                                 style="max-width: 20%; height: auto; display: none;" />
 
@@ -382,7 +380,7 @@
             .then(response => response.json())
             .then(data => {
                 document.getElementById('adminname').textContent = data.name;
-                const profileImage = document.getElementById('profileImage'); // Assuming your image element has the id "profileImage"
+                const profileImage = document.getElementById('profileImage'); 
                 profileImage.src = data.image;
             })
             .catch(error => console.error('Error fetching user data:', error));

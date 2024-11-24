@@ -30,7 +30,6 @@
     </div>
 
     <div class="cart-table">
-      <!-- Cart items will be dynamically added here -->
     </div>
 
     <div class="cart-summary">
@@ -216,14 +215,11 @@
       document.getElementById('payment-section').style.display = 'block';
     }
 
-    // Function to show the appropriate payment form
     function showPaymentForm(paymentMethod) {
-      // Hide all payment forms first
       document.getElementById('card-form').style.display = 'none';
       document.getElementById('paypal-form').style.display = 'none';
       document.getElementById('cash-form').style.display = 'none';
 
-      // Show the selected payment method's form
       if (paymentMethod === 'card') {
         document.getElementById('card-form').style.display = 'block';
       } else if (paymentMethod === 'paypal') {
@@ -234,18 +230,15 @@
     }
 
     function processPayment() {
-      // Show the success alert
       Swal.fire({
         title: "Payment successful!",
         text: "We will inform you....",
         icon: "success"
       }).then((result) => {
         if (result.isConfirmed) {
-          // Clear the cart stored in localStorage
-          localStorage.removeItem('cart'); // This removes the cart from localStorage
+          localStorage.removeItem('cart');
 
-          // Redirect to the cart page
-          window.location.href = 'cart.html'; // Redirect to the cart page
+          window.location.href = 'cart.html'; 
         }
       });
     }
@@ -266,17 +259,17 @@
         phone: phone,
         paymentMethod: paymentMethod,
         totalAmount: totalAmount,
-        cartItems: cartData, // Attach cart items
+        cartItems: cartData,
       };
 
-      console.log("Payload to be sent:", paymentDetails); // Debugging log
+      console.log("Payload to be sent:", paymentDetails); 
 
       fetch('php/oder_save.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(paymentDetails), // Ensure proper serialization
+        body: JSON.stringify(paymentDetails), 
       })
         .then((response) => {
           if (!response.ok) {
@@ -285,7 +278,7 @@
           return response.json();
         })
         .then((data) => {
-          console.log('Server response:', data); // Debugging log
+          console.log('Server response:', data); 
           if (data.success) {
             Swal.fire({
               title: "Payment successful!",
@@ -293,11 +286,9 @@
               icon: "success"
             }).then((result) => {
               if (result.isConfirmed) {
-                // Clear the cart stored in localStorage
-                localStorage.removeItem('cart'); // This removes the cart from localStorage
+                localStorage.removeItem('cart'); 
 
-                // Redirect to the cart page
-                window.location.href = 'cart.html'; // Redirect to the cart page
+                window.location.href = 'cart.html'; 
               }
             });
             localStorage.removeItem('cart');
